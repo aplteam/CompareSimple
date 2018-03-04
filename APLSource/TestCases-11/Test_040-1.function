@@ -1,0 +1,23 @@
+ R←Test_040(stopFlag batchFlag);⎕TRAP
+⍝ Exercise assignments to "compareTool", valid ones as well as invalid ons
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←∆Failed
+
+ :Trap 11
+     ##.CompareSimple.compareTool←'CompareIt!'
+ :Else
+     →FailsIf 1
+ :EndTrap
+
+ :Trap 11
+     ##.CompareSimple.compareTool←'BeyondCompare'
+ :Else
+     →FailsIf 1
+ :EndTrap
+
+ :Trap 11
+     ##.CompareSimple.compareTool←'schwurps'
+     →FailsIf 1
+ :EndTrap
+
+ R←∆OK

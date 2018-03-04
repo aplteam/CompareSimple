@@ -1,0 +1,53 @@
+ R←Test_002(stopFlag batchFlag);saveSourceFile;⎕TRAP
+⍝ Exercise "Match"
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←∆Failed
+
+ ⍝ ScriptRef ##.CompareSimple.Match ScriptName (they are different)
+ →FailsIf 0≠#.Old.APLTeamUtils ##.CompareSimple.Match'#.New.APLTeamUtils'
+
+ ⍝ ScriptName ##.CompareSimple.Match ScriptRef (they are different)
+ →FailsIf 0≠'#.Old.APLTeamUtils'##.CompareSimple.Match #.New.APLTeamUtils
+
+ ⍝ ScriptRef ##.CompareSimple.Match ScriptRef (they are different)
+ →FailsIf 0≠#.Old.APLTeamUtils ##.CompareSimple.Match #.New.APLTeamUtils
+
+ ⍝ ScriptName ##.CompareSimple.Match ScriptName (they are different)
+ →FailsIf 0≠'#.Old.APLTeamUtils'##.CompareSimple.Match'#.New.APLTeamUtils'
+
+ ⍝ ScriptRef ##.CompareSimple.Match ScriptName (they equal)
+ →FailsIf 1≠#.Old.Logger ##.CompareSimple.Match'#.New.Logger'
+
+ ⍝ ScriptName ##.CompareSimple.Match ScriptRef (they equal)
+ →FailsIf 1≠'#.Old.Logger'##.CompareSimple.Match #.New.Logger
+
+ ⍝ ScriptRef ##.CompareSimple.Match ScriptRef (they equal)
+ →FailsIf 1≠#.Old.Logger ##.CompareSimple.Match #.New.Logger
+
+ ⍝ ScriptName ##.CompareSimple.Match ScriptName (they equal)
+ →FailsIf 1≠'#.Old.Logger'##.CompareSimple.Match'#.New.Logger'
+
+ ⍝ fnsNme ##.CompareSimple.Match fnsName (they are different)
+ →FailsIf 0≠'#.Old.Dlgs.ErrMsg'##.CompareSimple.Match'#.New.Dlgs.ErrMsg'
+
+ ⍝ fnsNme ##.CompareSimple.Match fnsName (they are NOT different)
+ →FailsIf 1≠'#.Old.Dlgs.SortIndex'##.CompareSimple.Match'#.New.Dlgs.SortIndex'
+
+ ⍝ namespaceScriptRef ##.CompareSimple.Match namespaceScriptRef (they are NOT different)
+ →FailsIf 1≠#.APLTreeUtils ##.CompareSimple.Match #.APLTreeUtils
+
+ ⍝ namespaceScriptName ##.CompareSimple.Match namespaceScriptName (they are different)
+ →FailsIf 0≠Container.APLTreeUtils ##.CompareSimple.Match Container.APLTeamUtilsOld
+
+ ⍝ ##.CompareSimple.Match namespaceScriptName (they are different)
+
+ 'SALT_Data'#.APLTreeUtils.⎕NS''
+ #.APLTreeUtils.SALT_Data.SourceFile←GetFileRoot,'IsAlsoAPLTreeUtils.dyalog'
+ →FailsIf 0≠##.CompareSimple.Match #.APLTreeUtils
+
+ →FailsIf 1≠MatchTest ##.CompareSimple.Match GetFileRoot,'MatchTest.dyalog'
+
+ ⍝ (The match does not matter: this is about the blanks in the filename)
+ →FailsIf 0≠MatchTest ##.CompareSimple.Match GetFileRoot,'Filename with blanks.txt'
+
+ R←∆OK

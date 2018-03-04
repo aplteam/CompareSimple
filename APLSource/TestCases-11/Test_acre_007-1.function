@@ -1,0 +1,35 @@
+ R←Test_acre_007(stopFlag batchFlag);⎕TRAP;path;name
+⍝ Exercise "These" on a function that was just introduced.
+⍝ In such cases the first component is empty.
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←∆Failed
+
+ :If ∆AcreFlag
+
+     ⎕←'   *** Make sure that you try to compare!'
+     ⎕←'   When your are ready, press <enter>'
+     {}⍞
+
+     path←#.FilesAndDirs.GetTempPath,'CompareSimpleTest'
+     #.⎕SHADOW'TEMP'
+     'TEMP'#.⎕NS''
+     #.TEMP.⎕FX'r←Hello1' 'r←''World'''
+     {}#.FilesAndDirs.RmDir path
+     {}⎕SE.UCMD'acre.CreateProject ',path,' #.TEMP'
+     #.TEMP.⎕FX'r←Hello2' 'r←''Universe'''
+     {}⎕SE.UCMD'acre.SetChanged #.TEMP.Hello2'
+     #.TEMP.⎕FX'r←Hello2' 'r←''whole Universe'''
+     {}⎕SE.UCMD'acre.SetChanged #.TEMP.Hello2'
+
+     name←'#.TEMP.Hello2'
+     ##.CompareSimple.These name
+
+     R←∆OK
+
+∆TidyUp:
+     #.⎕EX'TEMP'
+     {}#.FilesAndDirs.RmDir path
+
+ :Else
+     R←∆Inactive
+ :EndIf

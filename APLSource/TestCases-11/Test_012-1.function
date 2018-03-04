@@ -1,0 +1,17 @@
+ R←Test_012(stopFlag batchFlag);saveSourceFile;name;⎕TRAP
+⍝ Exercise "These" with name of a script (takes SALT_Data.SourceFilename); uses CompareIt!
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←∆Failed
+
+ :If 1≢batchFlag
+     ##.CompareSimple.pathToCompareIt←∆FindCompareIt
+     ##.CompareSimple.compareTool←'CompareIt!'
+     'SALT_Data'#.APLTreeUtils.⎕NS''
+     #.APLTreeUtils.SALT_Data.SourceFile←GetFileRoot,'IsAlsoAPLTreeUtils.dyalog'
+     name←#.APLTreeUtils
+     ##.CompareSimple.These name
+
+     R←∆OK
+ :Else
+     R←∆NoBatchTest
+ :EndIf

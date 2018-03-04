@@ -1,0 +1,34 @@
+ R←Test_acre_005(stopFlag batchFlag);filename;parms;name1;name2;list;rc;⎕TRAP;fileProps1;fileProps2;path;body
+⍝ Exercise "These" with script name and an acre component file
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←∆Failed
+
+ :If 1≢batchFlag
+ :AndIf ∆AcreFlag
+     ⎕←'   *** Make sure that the FIRST file gets changed!'
+     ⎕←'   When your are ready, press <enter>'
+     {}⍞
+     'CompareTemporaryTestCases'#.⎕NS''
+     path←∆RemoveTempProject
+     {}⎕SE.UCMD'acre.createproject ',path,' #.CompareTemporaryTestCases'
+     body←⎕SRC #.New.APLTeamUtils
+     #.CompareTemporaryTestCases.⎕FIX body
+     {}⎕SE.UCMD'acre.setchanged #.CompareTemporaryTestCases.APLTeamUtils'
+     (2⊃body)←(2⊃body),' ⍝ Added by ',⎕AN,' at ',#.APLTreeUtils.FormatDateTime ⎕TS
+     #.CompareTemporaryTestCases.⎕FIX body
+     {}⎕SE.UCMD'acre.setchanged #.CompareTemporaryTestCases.APLTeamUtils'
+     filename←∆Simplify ∆GetChangeFilename'#.CompareTemporaryTestCases.APLTeamUtils'
+     parms←##.CompareSimple.CreateParmsFor_These
+     parms.acreFlag←1
+     name1←'#.Old.APLTeamUtils'
+     name2←'#.CompareTemporaryTestCases.APLTeamUtils'
+     rc←parms ##.CompareSimple.These name1('file://',filename)
+     →GoToTidyUp 1 0≢rc
+     R←∆OK
+
+∆TidyUp:
+     #.⎕EX'CompareTemporaryTestCases'
+     ∆RemoveTempProject
+ :Else
+     R←∆Inactive
+ :EndIf

@@ -1,0 +1,14 @@
+ r←ProjectList
+⍝ Returns a matrix. The number of lines is defined by the number of projects.
+⍝ [;1] Flag; 1=Open, 0=Load.
+⍝ [;2] Name of the acre project; used for either acre.OpenProject or acre.LoadProject.
+⍝ [;3] Name of the object in #. used for ⎕EX.
+⍝ The row order defines what will happen first.
+ r←0 3⍴⍬
+ r⍪←0 'APLTreeUtils' '#.APLTreeUtils'
+ r⍪←0 'Execute' '#.Execute'
+ r⍪←0 'WinFile' '#.WinFile'
+ r⍪←0 'WinReg' '#.WinReg'
+ r⍪←0 'Tester' '#.Tester'
+ r⍪←1 'CompareSimple' '#.CompareSimple'
+ r⍪←1 'CompareSimple_TestCases' '#.TestCases'

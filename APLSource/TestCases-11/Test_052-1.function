@@ -1,0 +1,17 @@
+ R←Test_052(stopFlag batchFlag);parms;fn1;fn2;fn6;⎕TRAP
+⍝ Exercise "These" with DOC files with proper extension and without converter.
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←∆Failed
+
+ :If batchFlag
+     R←∆NoBatchTest
+ :Else
+     fn1←'file://',GetFileRoot,'doc1.doc'
+     fn2←'file://',GetFileRoot,'doc2.doc'
+     parms←##.CompareSimple.CreateParmsFor_These
+     ∆ShowMsg'Watch out whether the next comparison shows readable text!'
+     parms ##.CompareSimple.These fn1 fn2
+     R←∆Failed=∆YesOrNo'Did CompareIt! show readable text? It should!'
+
+     R←∆OK
+ :EndIf

@@ -1,0 +1,29 @@
+ R←Test_acre_010(stopFlag batchFlag);filename;⎕TRAP;parms;path
+⍝ Exercise "These" with function name and an acre component file and an acre component number.
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←∆Failed
+
+ :If 1≢batchFlag
+ :AndIf ∆AcreFlag
+     'CompareTemporaryTestCases'#.⎕NS''
+     path←∆RemoveTempProject
+     {}⎕SE.UCMD'acre.createproject ',path,' #.CompareTemporaryTestCases'
+     #.CompareTemporaryTestCases.⎕FX'r←Hello' 'r←''world'''
+     {}⎕SE.UCMD'acre.setchanged #.CompareTemporaryTestCases.Hello'
+     #.CompareTemporaryTestCases.⎕FX'r←Hello' 'r←''World'''
+     {}⎕SE.UCMD'acre.setchanged #.CompareTemporaryTestCases.Hello'
+     #.CompareTemporaryTestCases.⎕FX'r←Hello' 'r←''Universe'''
+     {}⎕SE.UCMD'acre.setchanged #.CompareTemporaryTestCases.Hello'
+
+     parms←##.CompareSimple.CreateParmsFor_These
+     parms.componentNo←2
+     filename←'file://',∆Simplify ∆GetChangeFilename'#.CompareTemporaryTestCases.Hello'
+     parms ##.CompareSimple.These'#.CompareTemporaryTestCases.Hello'filename
+
+∆TidyUp:
+     #.⎕EX'CompareTemporaryTestCases'
+     ∆RemoveTempProject
+     R←∆OK
+ :Else
+     R←∆Inactive
+ :EndIf

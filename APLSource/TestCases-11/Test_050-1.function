@@ -1,0 +1,17 @@
+ R←Test_050(stopFlag batchFlag);parms;fn1;fn2;fn6;⎕TRAP
+⍝ Exercise "These" with RTF files with proper extension and without converter.
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←∆Failed
+
+ :If batchFlag
+     R←∆NoBatchTest
+ :Else
+     fn1←'file://',GetFileRoot,'rtf1.rtf'
+     fn2←'file://',GetFileRoot,'rtf2.rtf'
+     ∆ShowMsg'Watch out whether the next comparison shows readable text!'
+     parms←##.CompareSimple.CreateParmsFor_These
+     parms ##.CompareSimple.These fn1 fn2
+     R←∆Failed=∆YesOrNo'Did CompareIt! show readable text? It should!'
+
+     R←∆OK
+ :EndIf

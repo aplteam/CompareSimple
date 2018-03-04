@@ -1,0 +1,37 @@
+ R←Test_035(stopFlag batchFlag);name1;name2;res;was;fk;cfk;wasInstall;⎕TRAP
+⍝ Exercise the way CompareSimple tries to find "CompareIt!"
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←∆Failed
+
+ :If 1≢batchFlag
+
+ ⍝ Preconditions
+     ##.CompareSimple.pathToCompareIt←''
+     fk←'HKCU\Software\APLTree\Compare\PathToCompareIt!'        ⍝ Full key
+     :If 0=#.WinReg.DoesKeyExist fk
+         →R←0
+     :EndIf
+     was←#.WinReg.GetString fk
+     #.WinReg.DeleteValue fk
+     cfk←'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Compare It!_is1\InstallLocation'
+     wasInstall←#.WinReg.GetString cfk
+     #.WinReg.PutString cfk''
+
+⍝ Tests
+     res←##.CompareSimple.#.TestCases.∆FindCompareIt 0
+     →PassesIf~0∊⍴res
+     →PassesIf #.FilesAndDirs.Exists res
+     →PassesIf #.WinReg.DoesValueExist fk
+
+     ##.CompareSimple.pathToCompareIt←GetFileRoot,'TestCases\wincmp3.exe'
+     res←##.CompareSimple.#.TestCases.∆FindCompareIt 0
+     →PassesIf~0∊⍴res
+     →PassesIf #.FilesAndDirs.Exists res
+     →PassesIf #.WinReg.DoesValueExist fk
+
+⍝ Tidy up
+     #.WinReg.PutString cfk wasInstall
+     R←∆OK
+ :Else
+     R←∆NoBatchTest
+ :EndIf

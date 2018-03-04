@@ -1,0 +1,8 @@
+ r←Initial ns;list
+ r←1
+ ⎕IO←1 ⋄ ⎕ML←1
+ #.Tester.EstablishHelpersIn ⎕THIS
+ ∆SaltWasActive←'⎕SE.SALTUtils.EditorFix'≡↑⎕SE.Dyalog.SEEd.onFix
+ Cleanup
+ CopyTestData GetFileRoot
+ ∆AcreFlag←1   ⍝ Since acre 3 this is not a problem any more.

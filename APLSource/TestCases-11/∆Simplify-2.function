@@ -1,0 +1,8 @@
+ ∆Simplify←{
+⍝ With the introduction of acre 3 there was a time when there was confusion
+⍝ about what "GetChangeFilename" would return.
+⍝ We always ask for a single file and therefor want a simple string as result.
+⍝ When this is settled this function can be removed.
+     (≡⍵)∊0 1:⍵
+     ⊃⍵
+ }

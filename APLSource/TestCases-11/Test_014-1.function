@@ -1,0 +1,16 @@
+ R←Test_014(stopFlag batchFlag);name1;name2;⎕TRAP
+⍝ Exercise "These" with two script refs; uses CompareIt!
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←∆Failed
+
+ :If 1≢batchFlag
+     ##.CompareSimple.pathToCompareIt←∆FindCompareIt
+     ##.CompareSimple.compareTool←'CompareIt!'
+     name1←'#.Old.ADOC'
+     name2←'#.New.ADOC'
+     ##.CompareSimple.These name1 name2
+
+     R←∆OK
+ :Else
+     R←∆NoBatchTest
+ :EndIf

@@ -1,0 +1,4 @@
+ CopyTestData wsPath
+ '#.Old'#.⎕CY wsPath,'TestData'
+ '#.New'#.⎕CY wsPath,'TestData'
+⍝ Done

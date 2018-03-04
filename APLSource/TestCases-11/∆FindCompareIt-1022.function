@@ -1,0 +1,25 @@
+ r←∆FindCompareIt;rk;path
+    ⍝ Tries to find out somehow where CompareIt! is located.
+    ⍝ Saves its findings in the Registry.
+    ⍝ Result is either the path where CompreIt has been found or ''.
+ r←⍬
+ rk←'HKEY_CURRENT_USER\Software\APLTeam\Compare\'
+ r←#.WinReg.GetString rk,'\PathToCompareIt!'
+ :If 0∊⍴r                                           ⍝ We don't have a clue where it is located
+     rk←'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Compare It!_is1\InstallLocation'
+     :If 0∊⍴path←#.WinReg.GetString rk              ⍝ Ask Registry whether it knows about CompareIt!
+         path←(#.WinSys.ExpandEnv'%ProgramFiles%'),'\Compare It!\wincmp3.exe' ⍝ CompareIt's default location on XP etc
+         :If #.FilesAndDirs.Exists path            ⍝ Is CompareIt available there
+             r←'"',(path~'"'),'"'                   ⍝ Prepare proper path
+         :Else
+             path←(#.WinSys.ExpandEnv'%ProgramFiles(x86)%'),'\Compare It!\wincmp3.exe' ⍝ CompareIt's default location
+             :If #.FilesAndDirs.Exists path         ⍝ Is CompareIt available there
+                 r←'"',(path~'"'),'"'               ⍝ Prepare proper path
+             :Else
+                 'Cannot find CompareIt!'⎕SIGNAL 11 ⍝ The moron doesn't know either?!
+             :EndIf
+         :EndIf
+     :Else
+         r←'"',(path~'"'),'wincmp3.exe"'            ⍝ Prepare proper path
+     :EndIf
+ :EndIf

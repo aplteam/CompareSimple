@@ -1,0 +1,5 @@
+ {r}←∆YesOrNo msg;answer
+ ⍞←msg,' (y/n) '
+ answer←¯1↑⍞
+ →(~answer∊'YyNn')/1
+ r←answer∊'Yy'

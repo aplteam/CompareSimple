@@ -1,0 +1,8 @@
+ Cleanup
+ ∆RemoveTempProject
+ ⎕EX'#.Old'
+ ⎕EX'#.New'
+ ⎕EX'∆AcreFlag'
+ :If ∆SaltWasActive
+     ⎕SE.SALTUtils.EditorFix'Start'   ⍝ If SALT was active we re-establish it as a matter of courtesy
+ :EndIf

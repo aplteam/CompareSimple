@@ -1,0 +1,19 @@
+ R←Test_023(stopFlag batchFlag);⎕TRAP
+⍝ Exercise "These" with a non-existing file and a ref to a class; uses CompareIt!
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←∆Failed
+
+ :If 1≢batchFlag
+     ##.CompareSimple.compareTool←'CompareIt!'
+     ##.CompareSimple.pathToCompareIt←∆FindCompareIt
+     :Trap 0
+         ##.CompareSimple.These'file://C:/Doesnotexistatall/myfile.dyalog'#.FilesAndDirs
+         →FailsIf 1
+     :Else
+         →FailsIf'File not found: C:/Doesnotexistatall/myfile.dyalog'≢1⊃⎕DM
+     :EndTrap
+
+     R←∆OK
+ :Else
+     R←∆NoBatchTest
+ :EndIf

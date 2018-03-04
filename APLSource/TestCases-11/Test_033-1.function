@@ -1,0 +1,29 @@
+ R←Test_033(stopFlag batchFlag);parms;name1;name2;body1;body2;⎕TRAP
+⍝ Exercise "These" with two non-fully qualified function names; uses CompareIt! Uses CompareIt!
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←∆Failed
+
+ :If 1≢batchFlag
+     ##.CompareSimple.compareTool←'CompareIt!'
+     ##.CompareSimple.pathToCompareIt←∆FindCompareIt
+     parms←##.CompareSimple.CreateParmsFor_These
+     parms.readOnly1←0
+     parms.alias1←'the left side'
+     parms.alias2←'the right side'
+     name1←'ErrMsg1'
+     name2←'ErrMsg2'
+     body1←⎕NR'#.Old.Dlgs.ErrMsg'
+     (1⊃body1)←'ErrMsg'{n←(¯1+⍴⍺)+1⍳⍨⍺⍷⍵ ⋄ (-n)⌽'1',n⌽⍵}1⊃body1
+     ⎕FX body1
+     body2←⎕NR'#.New.Dlgs.ErrMsg'
+     (1⊃body2)←'ErrMsg'{n←(¯1+⍴⍺)+1⍳⍨⍺⍷⍵ ⋄ (-n)⌽'2',n⌽⍵}1⊃body2
+     ⎕FX body2
+
+     parms ##.CompareSimple.These name1 name2
+
+     ⍝ Tidy up
+     ⎕EX¨'ErrMsg1' 'ErrMsg2'
+     R←∆OK
+ :Else
+     R←∆NoBatchTest
+ :EndIf

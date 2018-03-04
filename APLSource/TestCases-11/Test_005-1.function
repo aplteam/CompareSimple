@@ -1,0 +1,26 @@
+ R←Test_005(stopFlag batchFlag);filename;buffer;⎕TRAP
+⍝ Exercise "WriteAplObjToFile"
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+
+ R←∆Failed
+
+
+ ⍝Function name:
+ filename←##.CompareSimple.WriteAplObjToFile'#.Old.Dlgs.ErrMsg'
+ buffer←#.APLTreeUtils.ReadUtf8File filename
+ #.FilesAndDirs.DeleteFile filename
+ →FailsIf 95 185≢⍴↑buffer
+
+ ⍝ Script name:
+ filename←##.CompareSimple.WriteAplObjToFile'#.Old.ADOC'
+ buffer←#.APLTreeUtils.ReadUtf8File filename
+ #.FilesAndDirs.DeleteFile filename
+ →FailsIf 2008 413≢⍴↑buffer
+
+ ⍝Script reference:
+ filename←##.CompareSimple.WriteAplObjToFile #.Old.ADOC
+ buffer←#.APLTreeUtils.ReadUtf8File filename
+ #.FilesAndDirs.DeleteFile filename
+ →FailsIf 2008 413≢⍴↑buffer
+
+ R←∆OK

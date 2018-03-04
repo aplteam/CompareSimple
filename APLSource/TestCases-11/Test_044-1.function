@@ -1,0 +1,23 @@
+ R←Test_044(stopFlag batchFlag);parms;⎕TRAP
+⍝ Exercise "These" with two assigned functions (same as idioms)
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←∆Failed
+ #.⎕SHADOW'TEMP'
+ '#.TEMP'⎕NS''
+ #.TEMP.sum←+/
+ #.TEMP.sum2←10∘{⍺×+/⍵}
+
+ :If 1≢batchFlag
+     ##.CompareSimple.compareTool←'CompareIt!'
+     ##.CompareSimple.pathToCompareIt←∆FindCompareIt
+     parms←##.CompareSimple.CreateParmsFor_These
+     parms.readOnly1←0
+     parms.alias1←'the left side'
+     parms.alias2←'the right side'
+
+     parms ##.CompareSimple.These'#.TEMP.sum' '#.TEMP.sum2'
+
+     R←∆OK
+ :Else
+     R←∆NoBatchTest
+ :EndIf
