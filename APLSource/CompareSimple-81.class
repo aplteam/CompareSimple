@@ -47,11 +47,16 @@
 
     ∇ r←Version
       :Access Public shared
-      r←('.'Last⍕⎕THIS)'2.2.0' '2018-03-04'
+      r←('.'Last⍕⎕THIS)'2.3.0' '2018-04-09'
     ∇
 
     ∇ History
       :Access Public shared
+      ⍝ * 2.3.0
+      ⍝   * There is only one change: the acre interface. If you don;t use acre you don't need to update.
+      ⍝
+      ⍝     Note that CompareSimple 2.3 is compatible only with acre 4.2 and better. If you use an older version of
+      ⍝     acre then you should only update after you've moved to acre 4.2.0 or better.
       ⍝ * 2.2.0
       ⍝   * First release on GitHub.
       ⍝   * CompareSimple is now compatible with acre 4. Acre 2 and 3 are no longer supported.
@@ -1144,7 +1149,7 @@
     ∇ {r}←SetChanged name;result
     ⍝ Tells acre that `name` got changed. Returns 1 when acre was found and 0 otherwise.
       :If r←0<⎕SE.⎕NC'acre'
-          result←⎕SE.UCMD'acre.SetChanged ',name,' [ messages←''off'' ]'
+          result←⎕SE.UCMD'acre.SetChanged ',name,' -messages=''off'''
           :If 0∊⍴result
               ⎕←'Acre was told about the change (but wasn''t interested) of ',name
           :EndIf
