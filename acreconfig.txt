@@ -1,6 +1,5 @@
 :Namespace
     CaseCode←'On'
-    Load←''
     Open←''
     ProjectSpace←'#._CompareSimple'
     StartUp←'#._CompareSimple.APLTreeUtils←#.APLTreeUtils'
