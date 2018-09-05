@@ -1,6 +1,5 @@
 :Class CompareSimple
 ⍝ ## Overview
-
 ⍝ ### Comparing
 ⍝ `CompareSimple` offers a bunch of shared methods helpful to compare
 ⍝ functions, operators and scripts. Sources of those objects may by in
@@ -47,11 +46,13 @@
 
     ∇ r←Version
       :Access Public shared
-      r←('.'Last⍕⎕THIS)'2.3.0' '2018-04-09'
+      r←('.'Last⍕⎕THIS)'2.3.1' '2018-08-30'
     ∇
 
     ∇ History
       :Access Public shared
+      ⍝ * 2.3.1
+      ⍝   * Bug fix regarding CompareSimple's compatability with acre 4.
       ⍝ * 2.3.0
       ⍝   * There is only one change: the acre interface. If you don;t use acre you don't need to update.
       ⍝
@@ -266,7 +267,7 @@
                       readOnly2←1 ⍝ only this makes sense!
                   :Else
                       :If 0<⎕SE.⎕NC'acre'                           ⍝ acre 3.x or 4.x ?!
-                          ref2←↑'changefile'⎕SE.acre._code.run⍕ref1
+                          ref2←'changefile'⎕SE.acre._code.run⍕ref1
                       :Else
                           'Invalid right argument'⎕SIGNAL 11
                       :EndIf

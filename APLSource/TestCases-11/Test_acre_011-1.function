@@ -16,7 +16,7 @@
      {}⎕SE.UCMD'acre.setchanged #.CompareTemporaryTestCases.Hello'
 
      parms←##.CompareSimple.CreateParmsFor_These
-     filename←'file://',⊃'changefile'⎕SE.acre.run'#.CompareTemporaryTestCases.Hello'
+     filename←'file://','changefile'⎕SE.acre.run'#.CompareTemporaryTestCases.Hello'
      parms ##.CompareSimple.These'#.CompareTemporaryTestCases.Hello'filename
 
 ∆TidyUp:
