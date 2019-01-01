@@ -53,14 +53,8 @@
       :Access Public shared
       ⍝ * 2.3.1
       ⍝   * Bug fix regarding CompareSimple's compatability with acre 4.
-      ⍝ * 2.3.0
-      ⍝   * There is only one change: the acre interface. If you don;t use acre you don't need to update.
-      ⍝
-      ⍝     Note that CompareSimple 2.3 is compatible only with acre 4.2 and better. If you use an older version of
-      ⍝     acre then you should only update after you've moved to acre 4.2.0 or better.
-      ⍝ * 2.2.0
-      ⍝   * First release on GitHub.
-      ⍝   * CompareSimple is now compatible with acre 4. Acre 2 and 3 are no longer supported.
+      ⍝\\
+      ⍝ For information regarding older versions see <https://github.com/aplteam/CompareSimple/releases>
     ∇
 
     :Field Public Shared regPathToCompareIt←'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Compare It!_is1\InstallLocation' ⍝ Where to start "CompareIt!" from
