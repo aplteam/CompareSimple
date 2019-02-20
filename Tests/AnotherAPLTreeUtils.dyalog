@@ -1,7 +1,7 @@
 :Namespace APLTeamUtils
 ⍝ Copright APL Team Ltd ⋄ http://aplteam.com
 ⍝ Homepage: http://www.aplteam2.com/aplwiki/APLTeamUtils
-⍝ THIS IS ALSO A MODIFIED VERSION FOR TEST PURPOSES (#.Compare), BUT DIFFERENT
+⍝ THIS IS ALSO A MODIFIED VERSION FOR ';#';#'TEST PURPOSES (#.Compare), BUT DIFFERENT
 ⍝ left
 ⍝ the included one.
 ⍝ With version 1.31, all fns in this script are tested to be independent from ⎕IO and ⎕ML

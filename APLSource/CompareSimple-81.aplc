@@ -8,12 +8,12 @@
 ⍝ ### Preconditions
 ⍝ `CompareSimple` needs the scripted namespace `APLTreeUtils`.
 ⍝
-⍝ It expects `APLTreeUtils` at the same level `Compare` itself is situated.
+⍝ It expects `APLTreeUtils` at the same level `CompareSimple` itself is situated.
 ⍝
 ⍝ ### Comparing
 ⍝ The actual comparison can be done by one of:
 ⍝ * "CompareIt!" (commercially available: <http://aplwiki.com/CompareIt>)
-⍝ * "Beyond Compare" (commercially available: <www.scootersoftware.com>)
+⍝ * "Beyond Compare" (commercially available: <http://www.scootersoftware.com>)
 ⍝
 ⍝ In order to find the compare utility you must specify one or both of:
 ⍝ * `pathToCompareIt`
@@ -32,7 +32,7 @@
 ⍝ ## Compare versus CompareSimple
 ⍝ `Compare` is a superset of `CompareSimple`.
 ⍝ Compare offers much more features but is also much bigger and more
-⍝ complicated. If CompareSimple suits your needs, take it. If
+⍝ complicated. If `CompareSimple` suits your needs, take it. If
 ⍝ not then have a look at `Compare`.
 ⍝
 ⍝
@@ -42,17 +42,21 @@
 
     ⎕IO←1 ⋄ ⎕ML←3
 
-    :Include ##.APLTreeUtils
+    :Include APLTreeUtils
 
     ∇ r←Version
       :Access Public shared
-      r←('.'Last⍕⎕THIS)'2.3.1.1' '2018-08-30'
+      r←('.'Last⍕⎕THIS)'2.4.0.11' '2019-02-20'
     ∇
 
     ∇ History
       :Access Public shared
-      ⍝ * 2.3.1
-      ⍝   * Bug fix regarding CompareSimple's compatability with acre 4.
+      ⍝ * 2.4.0
+      ⍝   * The `converter` options was removed. It started to cause problems lately, and CompareIt! is
+      ⍝     not under active development any more.
+      ⍝   * `:Include APLTreeUtils` rather than `##.APLTreeUtils` which was a bug in the first place.
+      ⍝   * Acre does not accept `-messages=` any more. Removed from CompareSimple.
+      ⍝   * Acre change files cannot be part of a comparison any more.
       ⍝\\
       ⍝ For information regarding older versions see <https://github.com/aplteam/CompareSimple/releases>
     ∇
@@ -141,20 +145,18 @@
       r.alias2←''
       r.refToUtils←{0::## ⋄ _refToUtils}⍬
       r.reportFile←''
-      r.converter←''
-      r.componentNo←⍬
       r.acreFlag←0
       r.⎕FX'r←List;⎕io' '⎕IO←⎕ML←0' 'r←{(⍵,[.5]⎕nc¨⊂¨⍵),⍎¨⍵}(⊂''List'')~⍨⎕NL-2 9 3' ⍝ Vars, refs and niladic functions
     ∇
 
-    ∇ {changeFlag}←{parms}These y;ref1;ref2;b;l;compNo2;ref1IsRef;ref2IsRef;ref2Is_FN;ref1Is_FN;temp_FN1;compNo1;isSalt1;isSalt2;FN_1;fno1;range1;dates1;temp_FN2;buffer;ref1IsDcf;FN_2;fno2;range2;dates2;ref2IsDcf;file2;saveDel1;saveDel2;body;bodies;lineNo;res;rc;G;cmd;f;file1
+    ∇ {changeFlag}←{parms}These y;ref1;ref2;b;l;ref1IsRef;ref2IsRef;ref2Is_FN;ref1Is_FN;temp_FN1;isSalt1;isSalt2;FN_1;fno1;range1;dates1;temp_FN2;FN_2;fno2;range2;dates2;file2;saveDel1;saveDel2;body;bodies;lineNo;res;rc;G;cmd;f;file1;buffer
       :Access Public Shared
           ⍝ Compare two "things" with each other.
           ⍝
           ⍝ * Syntax I.: `(ref1 [ref2])←y`
           ⍝ * Syntax II.: `(name1 [name2])←y`
           ⍝ * Syntax III.: `(name ["file://",filename])←y`
-          ⍝ * Syntax IV.: Just one name or one ref (`[2]` is then `SALT_Data` or acre component file)
+          ⍝ * Syntax IV.: Just one name or one ref (`[2]` is then `SALT_Data`)
           ⍝
           ⍝ Note that any references must point to scripts. `These` cannot deal with
           ⍝ ordinary namespaces (refs or names, it doesn't matter); see `Compare.Merge`
@@ -184,7 +186,7 @@
           ⍝ The following parameters can by specified from outside by passing a command space
           ⍝ as a left argument:
           ⍝
-          ⍝ `readOnly1`, `readOnly2`, `alias1`, `alias2`, `reportChanges`, `converter`, `componentNo`
+          ⍝ `readOnly1`, `readOnly2`, `alias1`, `alias2`, `reportChanges`, `componentNo`
           ⍝
           ⍝ Example:
           ⍝ ~~~
@@ -192,22 +194,9 @@
           ⍝ parms.readOnly1←0
           ⍝ parms.alias1←'foo'
           ⍝ parms.alias2←'blah
-          ⍝ parms.converter←'word'   ⍝ extract text from RTF rather than comparing RTF code.
-          ⍝  ⍝ positive: pre-select this component;
-          ⍝  ⍝ negative: read that component without user interaction;
-          ⍝  ⍝ can also be a two-element vector
-          ⍝ parms.componentNo←1
           ⍝
           ⍝ parms #.Compare.These #.Compare
           ⍝ ~~~
-          ⍝
-          ⍝ ## The "converter" parameter.
-          ⍝ If you want compare Microsoft Office documents (\*.doc, \*.docx, \*.rtf, \*.xls...
-          ⍝ then you need to define a converter. Empty by default, "converter" can be
-          ⍝ either "word" or "excel". Note that this must stay empty for versions of
-          ⍝ CompareIt prior to version 4.0 when Office documents got converted
-          ⍝ automatically, preventing you in particular to compare RTF code rather
-          ⍝ than text.
           ⍝
           ⍝ ## Explict Result
           ⍝ If `y[1]` and/or `y[2]` are **not** read-only, any changes made by  the user
@@ -235,7 +224,6 @@
           'G'⎕NS(⊂'parms.'),¨parms.⎕NL-2
       :EndIf
       changeFlag←0 0
-      compNo2←⍬
      
       (ref1 ref2)←{IsRef ⍵:⍵ ⋄ 9.5 9.4∊⍨|⎕NC⊂⍵:⍎⍵ ⋄ {⍵/⍨~(∧\' '=⍵)∨⌽∧\' '=⌽⍵}⍵}¨ref1 ref2
       (ref1 ref2)←{⍬≡⍴⍵:⍵
@@ -260,33 +248,10 @@
                       ref2←'file://',⍕(GetRefToSaltNS⍎⍕ref1).SourceFile
                       readOnly2←1 ⍝ only this makes sense!
                   :Else
-                      :If 0<⎕SE.⎕NC'acre'                           ⍝ acre 3.x or 4.x ?!
-                          ref2←'changefile'⎕SE.acre._code.run⍕ref1
-                      :Else
-                          'Invalid right argument'⎕SIGNAL 11
-                      :EndIf
-                      ref2←dlb dtb ref2
-                      :If G.refToUtils.FilesAndDirs.Exists ref2
-                          ref2←'file://',ref2
-                      :Else
-                          11 ⎕SIGNAL⍨'Nothing to compare with: "',(⍕ref1),'"'
-                      :EndIf
+                      11 ⎕SIGNAL⍨'Nothing to compare with: "',(⍕ref1),'"'
                   :EndIf
               :ElseIf (|⎕NC⍕ref1)∊3 4 ⍝ either fns or opr?
-                  :If  ⍝ Checks whether it is SALT managed
-                      .  ⍝TODO⍝
-                  :Else
-                      :If 0<⎕SE.⎕NC'acre'
-                          ref2←'changefile'⎕SE.acre._code,run ref1
-                      :Else
-                          'Invalid right argument'⎕SIGNAL 11
-                      :EndIf
-                      :If G.refToUtils.FilesAndDirs.Exists ref2
-                          ref2←'file://',ref2
-                      :Else
-                          11 ⎕SIGNAL⍨'File not found: ',⍕ref2
-                      :EndIf
-                  :EndIf
+                  .  ⍝TODO⍝
               :Else
                   'Invalid right argument'⎕SIGNAL 11
               :EndIf
@@ -296,136 +261,34 @@
           (ref1 ref2)←ref1IsRef ref2IsRef{⍺:GetRealHome ⍵ ⋄ ⍵}¨ref1 ref2
           (ref1Is_FN ref2Is_FN)←IsFile¨ref1 ref2
           temp_FN1←temp_FN2←⍬                                           ⍝ Temp filenames
-          compNo1←compNo2←⍬
           isSalt1←{~(|⎕NC⊂⍵)∊9.1 9.4 9.5:0 ⋄ 1=0<|⎕NC ⍵,'.∆':1 ⋄ 0<|⎕NC ⍵,'.SALT_Data'}ref1
           isSalt2←{~(|⎕NC⊂⍵)∊9.1 9.4 9.5:0 ⋄ 1=0<|⎕NC ⍵,'.∆':1 ⋄ 0<|⎕NC ⍵,'.SALT_Data'}ref2
-          G.againFlag←1 1 ⍝ Default is: repetition is a potential option
      
-     ∆Again:
           :If ref1Is_FN
-              FN_1←ref1
-              ref2IsDcf←0
-              :Trap 0
-                  FN_1↓⍨←'file://'{(⍴⍺)×⍺≡(⍴⍺)↑⍵}FN_1
-                  fno1←TieComponentFile FN_1
-                  range1←{¯1+⍵[1]+⍳|-/⍵}2↑⎕FSIZE fno1
-                  dates1←fno1{⎕FRDCI ⍺,⍵}¨range1
-                  dates1←FormatDateTime¨{date compidn 3⊃⍵}¨dates1
-                  :If ¯1=×1↑G.componentNo
-                      compNo1←|↑G.componentNo
-                      G.againFlag[1]←0
-                  :Else
-                      :If 0∊⍴,compNo1←fno1 DisplayList ref1 range'Select component for comparison'compNo1 dates1
-                          ⎕FUNTIE fno1
-                          :Return
-                      :EndIf
-                  :EndIf
-                  buffer←⎕FREAD fno1,compNo1
-                  ⎕FUNTIE fno1
-                  G.acreFlag←1
-                  ref1IsDcf←1
-                  :If 0∊⍴temp_FN2
-                      temp_FN1←G.refToUtils.FilesAndDirs.GetTempPath,(' '~⍨⍕⎕TS),(⍕?1000),'_',⎕AN,'.txt'
-                  :EndIf
-                  WriteUtf8File temp_FN1(3⊃buffer)
-              :Else
-                  compNo1←¯1
-                  ref1IsDcf←0
-                  temp_FN1←''
-              :EndTrap
+              FN_1←('file://'){⍵↓⍨(≢⍺)×⍺≡(≢⍺)↑Lowercase ⍵}ref1
           :Else
               :If 0∊⍴temp_FN1 ⍝ then we are coming back again
                   temp_FN1←WriteAplObjToFile ref1
                   FN_1←''
-                  ref1IsDcf←0
-                  compNo1←¯1
-                  G.againFlag[1]←0
               :EndIf
           :EndIf
-     
           :If ref2Is_FN
-              FN_2←ref2
-              ref2IsDcf←0
-              :Trap 0
-                  FN_2↓⍨←'file://'{(⍴⍺)×⍺≡(⍴⍺)↑⍵}FN_2
-                  fno2←TieComponentFile FN_2
-                  range2←¯1↓{¯1+⍵[1]+⍳|-/⍵}2↑⎕FSIZE fno2
-                  dates2←fno2{⎕FRDCI ⍺,⍵}¨range2
-                  dates2←FormatDateTime¨{date compidn 3⊃⍵}¨dates2
-                  :If ¯1=×¯1↑G.componentNo
-                      compNo2←|1+¯1↑G.componentNo
-                      G.againFlag[2]←0
-                  :Else
-                      :If 0∊⍴,compNo2←fno2 DisplayList ref2 range2'Select component for comparison'compNo2({2=|⎕NC ⍵:⍎⍵ ⋄ ⍬}'G.componentNo')dates2
-                          ⎕FUNTIE fno2
-                          :Return
-                      :EndIf
-                  :EndIf
-                  :If ~compNo2∊↑{(⍺-1)+⍳⍵-1}/2↑⎕FSIZE fno2
-                      ⎕FUNTIE fno2
-                      'Specified component does not exist'⎕SIGNAL 3
-                  :EndIf
-                  buffer←⎕FREAD fno2,compNo2
-                  ⎕FUNTIE fno2
-                  G.acreFlag←1
-                  ref2IsDcf←1
-                  :If 0∊⍴temp_FN2
-                      temp_FN2←G.refToUtils.FilesAndDirs.GetTempPath,(' '~⍨⍕⎕TS),(⍕?1000),'_',⎕AN,'.txt'
-                  :EndIf
-                  WriteUtf8File temp_FN2 buffer
-              :Case 24
-                  . ⍝ File tied????!
-              :Else
-                  :If 0∊⍴temp_FN2 ⍝ then we are coming back again
-                      compNo2←¯1
-                      ref2IsDcf←0
-                      temp_FN2←''
-                  :EndIf
-                  :Trap 0 ⋄ ⎕FUNTIE fno2 ⋄ :EndTrap
-              :EndTrap
+              FN_2←('file://'){⍵↓⍨(≢⍺)×⍺≡(≢⍺)↑Lowercase ⍵}ref2
           :Else
               FN_2←WriteAplObjToFile ref2
-              ref2IsDcf←0
-              compNo2←¯1
               temp_FN2←''
-              G.againFlag[2]←0
           :EndIf
-     
-          :If ref1IsDcf
-              file1←temp_FN1
-          :Else
-              file1←(1+0∊⍴temp_FN1)⊃temp_FN1 FN_1
-          :EndIf
-          :If ref2IsDcf
-              file2←temp_FN2
-          :Else
-              file2←(1+0∊⍴temp_FN2)⊃temp_FN2 FN_2
-          :EndIf
-     
+          file1←(1+0∊⍴temp_FN1)⊃temp_FN1 FN_1
+          file2←(1+0∊⍴temp_FN2)⊃temp_FN2 FN_2
           :If isSalt1
               saveDel1←{' '=1↑0⍴∊⍵:'''',⍵,'''' ⋄ ⍕⍵}{(⊂l~¨' '),⍺⍺¨⍵.⍎¨l←↓⍵.⎕NL 2}(GetRefToSaltNS⍎⍕ref1)
           :EndIf
           :If isSalt2
               saveDel2←{' '=1↑0⍴∊⍵:'''',⍵,'''' ⋄ ⍕⍵}{(⊂l~¨' '),⍺⍺¨⍵.⍎¨l←↓⍵.⎕NL 2}(GetRefToSaltNS⍎⍕ref2)
           :EndIf
-          :If 0∊⍴G.alias1
-              G.alias1←ref1
-          :EndIf
-          :If ¯1≢compNo1
-              G.alias1,←~' ',compNo1⊃dates1
-          :EndIf
-          :If 0∊⍴G.alias2
-              G.alias2←ref2
-          :EndIf
-          :If ¯1≢compNo2
-              :If 1=⍴dates2
-                  ShowMsg'Sorry, nothing to compare with'
-                  →∆Again
-              :Else
-                  G.alias2,←' ',compNo2⊃dates2
-              :EndIf
-          :EndIf
-     ∆EditAgain:
+          G.alias1{0=≢⍺:⍵ ⋄ ⍺}←ref1
+          G.alias2{0=≢⍺:⍵ ⋄ ⍺}←ref2
+     
           ('File not found: ',file1)⎕SIGNAL 11/⍨~refToUtils.FilesAndDirs.Exists file1
           ('File not found: ',file2)⎕SIGNAL 11/⍨~refToUtils.FilesAndDirs.Exists file2
           :Select WhichTool ⍬
@@ -434,29 +297,23 @@
                   cmd←''
                   cmd,←⊂refToUtils.FilesAndDirs.NormalizePath file1
                   cmd,←⊂refToUtils.FilesAndDirs.NormalizePath file2
-                  cmd,←⊂G.readOnly1∨(Is33 ref1)∨ref1IsDcf
-                  cmd,←⊂G.readOnly2∨(Is33 ref2)∨ref2IsDcf
-                  cmd,←⊂G.alias1,{~⍵:'' ⋄ ', component ',⍕compNo1}ref1IsDcf
-                  cmd,←⊂G.alias2,{~⍵:'' ⋄ ', component ',⍕compNo2}ref2IsDcf
-                  cmd,←⊂G.converter
+                  cmd,←⊂G.readOnly1∨(Is33 ref1)
+                  cmd,←⊂G.readOnly2∨(Is33 ref2)
                   changeFlag←~0∊¨↑∘⍴¨bodies←RunCompareIt cmd
               :Else
                   cmd←''
                   cmd,←⊂refToUtils.FilesAndDirs.NormalizePath file1
                   cmd,←⊂refToUtils.FilesAndDirs.NormalizePath file2
                   cmd,←⊂G.reportFile
-                  G.converter RunCompareItReport cmd
+                  RunCompareItReport cmd
               :EndIf
           :Case 'BeyondCompare'
               'Path to Beyond Compare is unknown'⎕SIGNAL 6/⍨0∊⍴pathToBeyondCompare
               cmd←''
               cmd,←⊂refToUtils.FilesAndDirs.NormalizePath file1
               cmd,←⊂refToUtils.FilesAndDirs.NormalizePath file2
-              cmd,←⊂G.readOnly1∨(Is33 ref1)∨ref1IsDcf
-              cmd,←⊂G.readOnly2∨(Is33 ref2)∨ref2IsDcf
-              cmd,←⊂G.alias1,{~⍵:'' ⋄ ', component ',⍕compNo1}ref1IsDcf
-              cmd,←⊂G.alias2,{~⍵:'' ⋄ ', component ',⍕compNo2}ref2IsDcf
-              cmd,←⊂G.converter
+              cmd,←⊂G.readOnly1∨(Is33 ref1)
+              cmd,←⊂G.readOnly2∨(Is33 ref2)
               :If 0∊⍴G.reportFile
                   changeFlag←~0∊¨↑∘⍴¨bodies←RunBeyondCompare cmd
               :Else
@@ -524,7 +381,6 @@
                   :EndIf
               :EndIf
           :EndIf
-          →(G.acreFlag∧(∨/G.againFlag)∧0<ref1IsDcf+ref2IsDcf)/∆Again
           refToUtils.FilesAndDirs.DeleteFile temp_FN1 temp_FN2
       :EndIf
     ∇
@@ -601,7 +457,6 @@
     ⍝ 4. (optional) read-only flag 2 (default=0)
     ⍝ 5. (optional) source1
     ⍝ 6. (optional) source2
-    ⍝ 7. (optional) converter
     ⍝ 8. (optional) Wait flag.
     ⍝
     ⍝ Always returns a two-element-vector:
@@ -617,7 +472,7 @@
       reportFile←{(0<⎕NC ⍵):⍎⍵ ⋄ ''}'reportFile'
       r←'' ''
       ps←⎕NS''
-      ps.(filename1 filename2 readonlyFlag1 readonlyFlag2 source1 source2 converter waitFlag)←8↑y,(⍴,y)↓'' '' 1 0 '' '' '' 1
+      ps.(filename1 filename2 readonlyFlag1 readonlyFlag2 source1 source2 waitFlag)←7↑y,(⍴,y)↓'' '' 1 0 '' '' 1
       :If 2=≡ps.source2
           (ps.source2 compNo)←ps.source2
       :EndIf
@@ -653,15 +508,6 @@
           cmd,←' /R'
       :Else
           cmd,←(ps.readonlyFlag1/' /R1'),((ps.readonlyFlag2/' /R2 '))
-      :EndIf
-      :If ~0∊⍴ps.converter
-          :If ps.converter≡'word'
-              cmd,←' /doc '
-          :ElseIf ps.converter≡'excel'
-              cmd,←' /xls '
-          :Else
-              'Invalid converter specified'⎕SIGNAL 11
-          :EndIf
       :EndIf
       (rc more)←ps.waitFlag Run cmd
       ({0 1∊⍨≡⍵:⍵ ⋄ 1⊃⍵}more)⎕SIGNAL 11/⍨rc>99
@@ -759,7 +605,7 @@
       :EndIf
     ∇
 
-    ∇ {converter}RunCompareItReport(filename1 filename2 reportFile);cmd;rc;more
+    ∇ RunCompareItReport(filename1 filename2 reportFile);cmd;rc;more
       :Access Public Shared
     ⍝ Runs CompareIt! against filename1 and filename2.
     ⍝
@@ -768,24 +614,12 @@
     ⍝ 2. filename2
     ⍝ 3. The name of a file that takes a report.
     ⍝
-    ⍝ `converter` can be empty or "word" or "excel'"
       'Filename(s) must not be empty!'⎕SIGNAL 11/⍨∨/0∊⊃∘⍴¨filename1 filename2
       {}FindCompareIt 1
-      converter←{0=⎕NC ⍵:'' ⋄ ⍎⍵}'converter'
-      'Invalid converter'⎕SIGNAL 11/⍨~(⊂converter)∊'' 'word' 'excel'
       cmd←pathToCompareIt,' '
       cmd,←'"',(filename1~'"'),'" '
       cmd,←'"',(filename2~'"'),'" '
       cmd,←' /G:UW0 "',(reportFile~'¨'),'" '
-      :If ~0∊⍴converter
-          :If converter≡'word'
-              cmd,←'/doc '
-          :ElseIf converter≡'excel'
-              cmd,←'/xls '
-          :Else
-              . ⍝ Huuuh?!
-          :EndIf
-      :EndIf
       (rc more)←1 Run cmd
       more ⎕SIGNAL 11/⍨rc≠0
       ⍝Done
@@ -933,55 +767,6 @@
     IsRef←{(0=≡⍵)∧⍵≢⍕⍵}                             ⍝ Used to identify references
     IsFile←{(∨/':/\'∊⍵)∨'file://'{⍺≡(⍴⍺)↑⍵}⍵}       ⍝ Used to identify filename
 
-    ∇ r←fno DisplayList(caption data info lastItemWas preSelect ts);∆;res;f;bool;⎕WX
-      r←⍬
-      ⎕WX←3
-      'f'⎕WC'Form'('Coord' 'Pixel')('Size'(240 650))('Posn'(45 35))
-      'f.font'⎕WC'Font'('PName' 'APL385 Unicode')('Size' 19)
-      f.FontObj←f.font
-      'f.mm'⎕WC'Menubar'
-      'f.mm.cmds'⎕WC'Menu' 'Commands'
-      'f.mm.cmds.del'⎕WC'MenuItem' 'Delete change file'('Event' 'Select' 'OnDelChangeFile')
-      'f.sb'⎕WC'Statusbar'
-      'f.sb.f'⎕WC'StatusField'('Coord' 'Prop')('Size'(⍬ 98))
-      'f.sb.f'⎕WS'Text'('No of components: ',⍕⍴data)
-      f.Caption←'Compare: ',caption
-      'f.l'⎕WC'Label'info(5 5)('Attach'(4⍴'Top' 'Left'))
-      ∆←⊂'Combo'
-⍝    ∆,←⊂'Items'({2=⍴⍴⍵:↓⎕FMT ⍵ ⋄ ⍕¨⍵}data)
-      ∆,←⊂'Items'((⍴⍕⌈/data)∘{'component no ',((-⍺)↑(⍺⍴'0'),⍕⍵[1]),' from ',2⊃⍵}¨data,¨⊂¨ts)
-      ∆,←⊂'Posn'(35 5)
-      ∆,←⊂'Size'(⍬(f.Size[2]-5×2))
-      ∆,←⊂'Attach'('Top' 'Left' 'Top' 'Right')
-      :If ⍬≡lastItemWas
-          :If 0∊⍴preSelect
-              ∆,←⊂'Selitems'((-1⊃⍴data)↑1)
-          :Else
-              bool←(⍴data)⍴0
-              bool[preSelect]←1
-              ∆,←⊂'Selitems'bool
-          :EndIf
-      :Else
-          ∆,←⊂'Selitems'(lastItemWas=data)
-      :EndIf
-      'f.c'⎕WC ∆
-      'f.ok'⎕WC'Button' 'Compare'((f.Size[1]-55),5)(⍬ 100)('Default' 1)('Event' 'Select' 1)('Attach'(4⍴'Bottom' 'Left'))
-      'f.cancel'⎕WC'Button' 'Close'(f.Size-55 105)(⍬ 100)('Cancel' 1)('Event' 'Select' 1)('Attach'(4⍴'Bottom' 'Right'))
-      ⎕NQ'f.c' 'GotFocus' ⋄ res←⎕DQ'f'
-      :If ~0∊⍴res
-      :AndIf 'f.ok'≡1⊃res
-          r←(f.c.SelItems⍳1)⊃{2=⍴⍴⍵:⍵[;1] ⋄ ⍵}data
-      :EndIf
-    ∇
-
-    ∇ r←RemoveLeadingAndTrailingBlanks r
-      :If 0 1∊⍨≡r
-          r/⍨←~(∧\' '=r)∧⌽∧\' '=⌽r
-      :Else
-          r←{⍵/⍨~(∧\' '=⍵)∨⌽∧\' '=⌽⍵}¨r
-      :EndIf
-    ∇
-
     ∇ R←ExpandEnv Y;ExpandEnvironmentStrings;f;⎕ML;⎕IO
     ⍝ If Y does not contain any "%", Y is passed untouched.
     ⍝ In case Y is empty R is empty as well.
@@ -1112,18 +897,6 @@
           ¯2416544+D+B+⊃+/⌊365.25 30.6×Y M+4716 1 ⍝ (fractional) days.
       }
 
-    ∇ r←TieComponentFile filename;list
-    ⍝ When `CompareSimple.These` is used alongside with acre then
-    ⍝ the file might well be tied by acre already, so we need
-    ⍝ to take care of that here and now:
-      :Trap 24
-          r←filename ⎕FTIE 0
-      :Case 24
-          list←Lowercase{dlb dtb ⍵}¨↓⎕FNAMES
-          r←(list⍳⊂Lowercase filename)⊃⎕FNUMS
-      :EndTrap
-    ∇
-
     ∇ r←{noSplit}ReadAnsiFile filename;tno;size
     ⍝ Read contents as chars. File is tied in shared mode.
       noSplit←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'noSplit'
@@ -1144,9 +917,9 @@
     ∇ {r}←SetChanged name;result
     ⍝ Tells acre that `name` got changed. Returns 1 when acre was found and 0 otherwise.
       :If r←0<⎕SE.⎕NC'acre'
-          result←⎕SE.UCMD'acre.SetChanged ',name,' -messages=''off'''
+          result←⎕SE.UCMD'acre.SetChanged ',name
           :If 0∊⍴result
-              ⎕←'Acre was told about the change (but wasn''t interested) of ',name
+              ⎕←'Acre was told that "',name,'" got changed but wasn''t interested...'
           :EndIf
       :EndIf
     ∇

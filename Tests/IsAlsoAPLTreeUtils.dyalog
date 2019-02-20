@@ -1,5 +1,5 @@
 :Namespace APLTeamUtils
-⍝ Copright APL Team Ltd ⋄ http://aplteam.com
+⍝';l';l';l Copright APL Team Ltd ⋄ http://aplteam.com
 ⍝ Homepage: http://www.aplteam2.com/aplwiki/APLTeamUtils
 ⍝ THIS IS ALSO A MODIFIED VERSION FOR TEST PURPOSES (#.Compare), BUT DIFFERENT
 ⍝ left

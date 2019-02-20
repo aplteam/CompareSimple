@@ -2,5 +2,5 @@
 ⍝ "filename" is a report file; it contains the result of a CompareIt! run
 ⍝ Just reading "filename" is fine - we are not testing CompareIt!
  r←⍬
- buffer←⎕NGET filename
+ buffer←'Windows-1252'⎕NGET filename
  #.FilesAndDirs.DeleteFile filename
