@@ -4,7 +4,6 @@
  R←∆Failed
 
  :If ~batchFlag
-     ##.CompareSimple.pathToCompareIt←∆FindCompareIt
      filename1←##.CompareSimple.WriteAplObjToFile New.APLTeamUtils
      filename2←##.CompareSimple.WriteAplObjToFile Old.APLTeamUtils
 

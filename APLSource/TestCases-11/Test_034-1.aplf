@@ -1,12 +1,11 @@
  R←Test_034(stopFlag batchFlag);name1;name2;⎕TRAP
-⍝ Exercise "These" with two function names but these functions are niladic! Uses CompareIt!
+⍝ Exercise "These" with two function names but these functions are niladic! Uses BeyondCompare
 ⍝ Added when a bug came to light in 2012-02-08: niladic functions are executed inside CompareSimple!
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
  R←∆Failed
 
  :If 1≢batchFlag
-     ##.CompareSimple.compareTool←'CompareIt!'
-     ##.CompareSimple.pathToCompareIt←∆FindCompareIt
+     ##.CompareSimple.compareTool←'BeyondCompare'
      #.⎕SHADOW'TEMP'
      'TEMP'#.⎕NS''
      #.TEMP.⎕FX¨(↑'r←NiladicFns1' 'R←∆Failed23')(↑'r←NiladicFns2' 'r←4 5 6')

@@ -1,11 +1,10 @@
  R←Test_022(stopFlag batchFlag);name;⎕TRAP
-⍝ Exercise "These" with a ref to a class and a non-existing file; uses CompreIt!
+⍝ Exercise "These" with a ref to a class and a non-existing file; uses BeyondCompare
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
  R←∆Failed
 
  :If 1≢batchFlag
-     ##.CompareSimple.compareTool←'CompareIt!'
-     ##.CompareSimple.pathToCompareIt←∆FindCompareIt
+     ##.CompareSimple.compareTool←'BeyondCompare'
      name←#.FilesAndDirs
      :Trap 0
          ##.CompareSimple.These name'file://C:/Doesnotexistatall/myfile.dyalog'

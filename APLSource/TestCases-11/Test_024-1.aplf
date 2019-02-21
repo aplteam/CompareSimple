@@ -1,11 +1,10 @@
  R←Test_024(stopFlag batchFlag);parms;filename;name;⎕TRAP
-⍝ Exercise "These" with a script and a file with blanks in its filename'; uses CompareIt!
+⍝ Exercise "These" with a script and a file with blanks in its filename'; uses BeyondCompare
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
  R←∆Failed
 
  :If 1≢batchFlag
-     ##.CompareSimple.compareTool←'CompareIt!'
-     ##.CompareSimple.pathToCompareIt←∆FindCompareIt
+     ##.CompareSimple.compareTool←'BeyondCompare'
      filename←'file://',GetFileRoot,'Filename with blanks.txt'
      name←'#.Old.ADOC'
      ##.CompareSimple.These name filename

@@ -1,11 +1,10 @@
  R←Test_021(stopFlag batchFlag);parms;filename;name;⎕TRAP
-⍝ Exercise "These" with an invalid and/or empty command space parameter; uses CompareIt!
+⍝ Exercise "These" with an invalid and/or empty command space parameter; uses BeyondCompare
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
  R←∆Failed
 
  :If 1≢batchFlag
-     ##.CompareSimple.compareTool←'CompareIt!'
-     ##.CompareSimple.pathToCompareIt←∆FindCompareIt
+     ##.CompareSimple.compareTool←'BeyondCompare'
      parms←⎕NS''
      parms.Unknown←'firlefanz'      ⍝ This is invalid
      filename←'file://',GetFileRoot,'Compare.acre/#.Old.ADOC.623'

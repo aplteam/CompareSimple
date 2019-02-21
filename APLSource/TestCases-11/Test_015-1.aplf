@@ -1,10 +1,10 @@
  R←Test_015(stopFlag batchFlag);f1;f2;⎕TRAP
-⍝ Exercise "These" with two filenames; uses CompareIt!
+⍝ Exercise "These" with two filenames; uses BeyondCompare
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
  R←∆Failed
 
  :If 1≢batchFlag
-     ##.CompareSimple.compareTool←'CompareIt!'
+     ##.CompareSimple.compareTool←'BeyondCompare'
      f1←'file://',GetFileRoot,'IsAlsoAPLTreeUtils.dyalog'
      f2←'file://',GetFileRoot,'AnotherAPLTreeUtils.dyalog'
      ##.CompareSimple.These f1 f2

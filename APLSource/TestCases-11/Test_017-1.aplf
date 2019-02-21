@@ -1,11 +1,10 @@
  R←Test_017(stopFlag batchFlag);parms;name1;name2;⎕TRAP
-⍝ Exercise "These" with two fully qualified function names; uses CompareIt!
+⍝ Exercise "These" with two fully qualified function names; uses BeyondCompare
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
  R←∆Failed
 
  :If 1≢batchFlag
-     ##.CompareSimple.compareTool←'CompareIt!'
-     ##.CompareSimple.pathToCompareIt←∆FindCompareIt
+     ##.CompareSimple.compareTool←'BeyondCompare'
      parms←##.CompareSimple.CreateParmsFor_These
      parms.readOnly1←0
      parms.alias1←'the left side'

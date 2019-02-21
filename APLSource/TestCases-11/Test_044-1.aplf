@@ -8,8 +8,7 @@
  #.TEMP.sum2←10∘{⍺×+/⍵}
 
  :If 1≢batchFlag
-     ##.CompareSimple.compareTool←'CompareIt!'
-     ##.CompareSimple.pathToCompareIt←∆FindCompareIt
+     ##.CompareSimple.compareTool←'BeyondCompare'
      parms←##.CompareSimple.CreateParmsFor_These
      parms.readOnly1←0
      parms.alias1←'the left side'

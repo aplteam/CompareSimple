@@ -1,5 +1,5 @@
  R←Test_032(stopFlag batchFlag);name1;name2;⎕TRAP
-⍝ Exercise "These" with one ref pointing to an ordinary namespace (not expected to work). Uses CompareIt!
+⍝ Exercise "These" with one ref pointing to an ordinary namespace (not expected to work). Uses BeyondCompare
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
  R←∆Failed
 
@@ -8,7 +8,7 @@
      name1←'#.Old.ADOC'
      name2←'#.New'
      :Trap 0
-         ##.CompareSimple.compareTool←'CompareIt!'
+         ##.CompareSimple.compareTool←'BeyondCompare'
          ##.CompareSimple.These name1 name2
          →FailsIf
      :Else

@@ -18,13 +18,11 @@
      #.WinReg.PutString cfk''
 
 ⍝ Tests
-     res←##.CompareSimple.#.TestCases.∆FindCompareIt 0
      →PassesIf~0∊⍴res
      →PassesIf #.FilesAndDirs.Exists res
      →PassesIf #.WinReg.DoesValueExist fk
 
      ##.CompareSimple.pathToCompareIt←GetFileRoot,'TestCases\wincmp3.exe'
-     res←##.CompareSimple.#.TestCases.∆FindCompareIt 0
      →PassesIf~0∊⍴res
      →PassesIf #.FilesAndDirs.Exists res
      →PassesIf #.WinReg.DoesValueExist fk

@@ -1,10 +1,9 @@
  R←Test_010(stopFlag batchFlag);filename;name;saveSourceFile;name1;name2;parms;list;pattern;⎕TRAP
-⍝ Exercise "These" with function name and a filename; uses CompareIt!
+⍝ Exercise "These" with function name and a filename; uses BeyondCompare
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
  R←∆Failed
  :If 1≢batchFlag
-     ##.CompareSimple.pathToCompareIt←∆FindCompareIt
-     ##.CompareSimple.compareTool←'CompareIt!'
+     ##.CompareSimple.compareTool←'BeyondCompare'
      filename←##.CompareSimple.WriteAplObjToFile'#.Old.Dlgs.AskString_.Make'  ⍝ Error? Initial did not run?!
      name←'#.New.Dlgs.AskString_.Make'
      ##.CompareSimple.These name('file://',filename)
