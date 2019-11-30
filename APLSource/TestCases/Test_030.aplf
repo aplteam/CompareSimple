@@ -1,0 +1,20 @@
+ R←Test_030(stopFlag batchFlag);name1;name2;⎕TRAP
+⍝ Exercise "These" with two refs pointing to ordinary namespaces (not expected to work). Uses BeyondCompare
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ :If 1≢batchFlag
+
+     name1←'#.Old'
+     name2←'#.New'
+     :Trap 0
+         ##.CompareSimple.compareTool←'BeyondCompare'
+         ##.CompareSimple.These name1 name2
+         →T.FailsIf
+     :Else
+         →T.PassesIf'"These" cannot process ordinary namespaces; use `Compare.Merge` instead.'≡1⊃⎕DM
+     :EndTrap
+     R←T._OK
+ :Else
+     R←T._NoBatchTest
+ :EndIf

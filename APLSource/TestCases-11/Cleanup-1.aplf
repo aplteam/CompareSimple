@@ -1,5 +1,0 @@
- Cleanup
- ∆RemoveTempProject
- ⎕EX'#.Old'
- ⎕EX'#.New'
- ⎕EX'∆AcreFlag'

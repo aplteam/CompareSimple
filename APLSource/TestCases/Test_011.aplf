@@ -1,0 +1,14 @@
+ R←Test_011(stopFlag batchFlag);name;saveSourceFile;name1;name2;parms;list;pattern;⎕TRAP
+⍝ Exercise "These" with function name and a filename; uses BeyondCompare
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+ ##.CompareSimple.compareTool←'BeyondCompare'
+ name←⊃⎕XSI
+
+ :Trap 11
+     ##.CompareSimple.These name
+     →T.FailsIf 1
+ :Else
+     R←T._OK
+ :EndTrap
+⍝Done

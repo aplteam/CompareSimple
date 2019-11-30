@@ -1,0 +1,16 @@
+ R←Test_043(stopFlag batchFlag);⎕TRAP
+⍝ Let "These" decide what to use, depending on either pathToCompareIt or pathToBeyondCompare. No user needed.
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ ##.CompareSimple.compareTool←''
+ ##.CompareSimple.pathToBeyondCompare←''
+ ##.CompareSimple.pathToCompareIt←''
+ ##.CompareSimple.pathToCompareIt←##.CompareSimple.FindCompareIt 0
+
+ ##.CompareSimple.compareTool←''
+ ##.CompareSimple.pathToCompareIt←''
+ ##.CompareSimple.pathToBeyondCompare←''
+ ##.CompareSimple.pathToBeyondCompare←##.CompareSimple.FindBeyondCompare 0
+
+ R←T._OK

@@ -1,0 +1,17 @@
+ R←Test_001(stopFlag batchFlag);⎕TRAP;content;encoding;filename;buff
+⍝ Exercise "Match"
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+ filename←##.FilesAndDirs.GetTempFilename''
+ ##.FilesAndDirs.DeleteFile filename  ⍝ Just in case
+ content←'This is a Unicode file' 'With UTF16-little-endian encoding.'
+ encoding←'UTF-16LE'
+ (content encoding)⎕NPUT filename
+
+ buff←##.CompareSimple.Exec'ReadAnyFile ''',filename,''''
+ →T.PassesIf content≡buff
+
+ R←T._OK
+
+∆TidyUp:
+ ##.FilesAndDirs.DeleteFile filename

@@ -1,8 +1,0 @@
- {path}←∆RemoveTempProject;rc;⎕ML
- ⎕ML←1
- path←#.FilesAndDirs.GetTempPath,'CompareTemporaryTestCases'
- :If #.FilesAndDirs.Exists path
-     rc←#.FilesAndDirs.RmDir path
- :AndIf 0≠⊃rc
-     . ⍝ remove went wrong!
- :EndIf

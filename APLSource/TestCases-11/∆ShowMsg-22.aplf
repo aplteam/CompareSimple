@@ -1,4 +1,0 @@
- {r}←∆ShowMsg msg
- r←''
- ⍞←msg,'; to continue press <enter> '
- {}⍞

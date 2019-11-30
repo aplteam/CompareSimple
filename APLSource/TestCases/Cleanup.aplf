@@ -1,0 +1,4 @@
+ Cleanup
+ ⎕EX'#.Old'
+ ⎕EX'#.New'
+ ⎕EX'∆AcreFlag'

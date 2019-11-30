@@ -1,0 +1,15 @@
+ R←Test_013(stopFlag batchFlag);name1;name2;⎕TRAP
+⍝ Exercise "These" with two function names; uses BeyondCompare
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ :If 1≢batchFlag
+     ##.CompareSimple.compareTool←'BeyondCompare'
+     name1←'#.Old.Dlgs.ErrMsg'
+     name2←'#.New.Dlgs.ErrMsg'
+     ##.CompareSimple.These name1 name2
+
+     R←T._OK
+ :Else
+     R←T._NoBatchTest
+ :EndIf
