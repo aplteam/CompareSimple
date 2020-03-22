@@ -39,19 +39,13 @@
 
     ∇ r←Version
       :Access Public shared
-      r←('.'Last⍕⎕THIS)'2.4.0.14' '2019-02-21'
+      r←('.'Last⍕⎕THIS)'3.0.0.15' '2020-03-22'
     ∇
 
     ∇ History
       :Access Public shared
-      ⍝ * 2.4.0
-      ⍝   * The `converter` options was removed. It started to cause problems lately, and CompareIt! is
-      ⍝     not under active development any more.
-      ⍝   * `:Include APLTreeUtils` rather than `##.APLTreeUtils` which was a bug in the first place.
-      ⍝   * Acre does not accept `-messages=` any more. Removed from CompareSimple.
-      ⍝   * Acre change files cannot be part of a comparison any more.
-      ⍝   * Search for comparison tool improved.
-      ⍝   * New default for comparsion tool is now "Beyond Compare" rather than "CompareIt!" which is now deprecated.
+      ⍝ * 3.0.0
+      ⍝   * BREAKING CHANGE: File extension changed from .DYALOG to .APLC
       ⍝\\
       ⍝ For information regarding older versions see <https://github.com/aplteam/CompareSimple/releases>
     ∇
