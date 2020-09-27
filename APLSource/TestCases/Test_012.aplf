@@ -5,9 +5,9 @@
 
  :If 1≢batchFlag
      ##.CompareSimple.compareTool←'BeyondCompare'
-     'SALT_Data'##.APLTreeUtils.⎕NS''
-     ##.APLTreeUtils.SALT_Data.SourceFile←GetFileRoot,'IsAlsoAPLTreeUtils.dyalog'
-     name←##.APLTreeUtils
+     'SALT_Data'##.APLTreeUtils2.⎕NS''
+     ##.APLTreeUtils2.SALT_Data.SourceFile←GetFileRoot,'IsAlsoAPLTreeUtils.dyalog'
+     name←##.APLTreeUtils2
      ##.CompareSimple.These name
 
      R←T._OK

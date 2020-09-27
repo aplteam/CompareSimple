@@ -7,19 +7,19 @@
 
  ⍝Function name:
  filename←##.CompareSimple.WriteAplObjToFile'#.Old.Dlgs.ErrMsg'
- buffer←##.APLTreeUtils.ReadUtf8File filename
+ buffer←⊃⎕NGET filename 1
  ##.FilesAndDirs.DeleteFile filename
  →T.FailsIf 95 185≢⍴↑buffer
 
  ⍝ Script name:
  filename←##.CompareSimple.WriteAplObjToFile'#.Old.ADOC'
- buffer←##.APLTreeUtils.ReadUtf8File filename
+ buffer←⊃⎕NGET filename 1
  ##.FilesAndDirs.DeleteFile filename
  →T.FailsIf 2008 413≢⍴↑buffer
 
  ⍝Script reference:
  filename←##.CompareSimple.WriteAplObjToFile #.Old.ADOC
- buffer←##.APLTreeUtils.ReadUtf8File filename
+ buffer←⊃⎕NGET filename 1
  ##.FilesAndDirs.DeleteFile filename
  →T.FailsIf 2008 413≢⍴↑buffer
 

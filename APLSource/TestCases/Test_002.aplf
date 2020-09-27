@@ -34,16 +34,16 @@
  →T.FailsIf 1≠'#.Old.Dlgs.SortIndex'##.CompareSimple.Match'#.New.Dlgs.SortIndex'
 
  ⍝ namespaceScriptRef ##.CompareSimple.Match namespaceScriptRef (they are NOT different)
- →T.FailsIf 1≠##.APLTreeUtils ##.CompareSimple.Match ##.APLTreeUtils
+ →T.FailsIf 1≠##.APLTreeUtils2 ##.CompareSimple.Match ##.APLTreeUtils2
 
  ⍝ namespaceScriptName ##.CompareSimple.Match namespaceScriptName (they are different)
  →T.FailsIf 0≠Container.APLTreeUtils ##.CompareSimple.Match Container.APLTeamUtilsOld
 
  ⍝ ##.CompareSimple.Match namespaceScriptName (they are different)
 
- 'SALT_Data'##.APLTreeUtils.⎕NS''
- ##.APLTreeUtils.SALT_Data.SourceFile←GetFileRoot,'IsAlsoAPLTreeUtils.dyalog'
- →T.FailsIf 0≠##.CompareSimple.Match ##.APLTreeUtils
+ 'SALT_Data'##.APLTreeUtils2.⎕NS''
+ ##.APLTreeUtils2.SALT_Data.SourceFile←GetFileRoot,'IsAlsoAPLTreeUtils.dyalog'
+ →T.FailsIf 0≠##.CompareSimple.Match ##.APLTreeUtils2
 
  →T.FailsIf 1≠MatchTest ##.CompareSimple.Match GetFileRoot,'MatchTest.dyalog'
 
