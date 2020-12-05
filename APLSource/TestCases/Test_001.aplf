@@ -8,7 +8,7 @@
  encoding←'UTF-16LE'
  (content encoding)⎕NPUT filename
 
- buff←##.CompareSimple.Exec'ReadAnyFile ''',filename,''''
+ buff←##.CompareSimple.Exec'ReadFile ''',filename,''''
  →T.PassesIf content≡buff
 
  R←T._OK
