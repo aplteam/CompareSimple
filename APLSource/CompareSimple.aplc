@@ -33,11 +33,13 @@
 
     ∇ r←Version
       :Access Public shared
-      r←'CompareSimple' '5.0.0.28' '2020-12-05'
+      r←'CompareSimple' '5.0.1+30' '2021-03-03'
     ∇
 
     ∇ History
       :Access Public shared
+      ⍝ * 5.0.1
+      ⍝   * Package config corrected
       ⍝ * 5.0.0
       ⍝   * BREAKING CHANGES:
       ⍝     * `refToUtils` removed. All dependencies are now expected to be siblings of the class.
