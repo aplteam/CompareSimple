@@ -1,2 +1,2 @@
  r←GetFileRoot
- r←'Tests\'
+ r← ##.CiderConfig.HOME, 'Tests\'
