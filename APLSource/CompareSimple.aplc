@@ -26,14 +26,14 @@
 ⍝ Compare offers much more features but is also much bigger and more
 ⍝ complicated. If `CompareSimple` suits your needs, take it. If
 ⍝ not then have a look at `Compare`.\\
-⍝ Author: Kai Jaeger ⋄ APL Team Ltd\\
+⍝ Author: Kai Jaeger 
 ⍝ Homepage: <https://github.com/aplteam/CompareSimple>
 
     ⎕IO←1 ⋄ ⎕ML←1
 
     ∇ r←Version
       :Access Public shared
-      r←'CompareSimple' '5.0.1+30' '2021-03-03'
+      r←'CompareSimple' '5.0.1+32' '2021-03-03'
     ∇
 
     ∇ History

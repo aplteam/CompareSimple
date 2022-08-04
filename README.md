@@ -3,7 +3,7 @@
 
 ## Overview
 
-`CompareSimple` offers a couple of methods designed to compare functions, operators, scripts and files. It is also able to deal with SALTed files as well as acre component files.
+`CompareSimple` offers a couple of methods designed to compare functions, operators, scripts and files. It is also able to deal with SALTed or Linked files.
 
 
 ## Methods
