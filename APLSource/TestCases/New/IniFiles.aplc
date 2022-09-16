@@ -47,8 +47,8 @@
     ⍝ 'foo.ini' ← #.IniFiles.GetIniFiles
       (p fn)←{('\'∊⍵):SplitPath ⍵ ⋄ ''⍵}filename
       (fn ext)←{('.'∊⍵):'.'SplitPath ⍵ ⋄ (⍵,'.')'ini'}fn
-      f1←##.FilesAndDirs.Exists fn1←p,fn,ext
-      f2←##.FilesAndDirs.Exists fn2←p,(¯1↓fn),'_',GetComputerName,'.',ext
+      f1←FilesAndDirs.Exists fn1←p,fn,ext
+      f2←FilesAndDirs.Exists fn2←p,(¯1↓fn),'_',GetComputerName,'.',ext
       ⍎('Could not find ',fn1)Signal 6/⍨f1=0
       r←(f1/⊂fn1),f2/⊂fn2
     ∇

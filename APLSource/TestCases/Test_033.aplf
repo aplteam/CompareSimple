@@ -1,28 +1,27 @@
- R←Test_033(stopFlag batchFlag);parms;name1;name2;body1;body2;⎕TRAP
-⍝ Exercise "These" with two non-fully qualified function names; uses CompareIt! Uses BeyondCompare
+ R←Test_033(stopFlag batchFlag);parms;name1;name2;body1;body2;⎕TRAP;files
+⍝ Exercise "These" with two non-fully qualified function names
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
  R←T._Failed
 
- :If 1≢batchFlag
-     ##.CompareSimple.compareTool←'BeyondCompare'
-     parms←##.CompareSimple.CreateParmsFor_These
-     parms.readOnly1←0
-     parms.alias1←'the left side'
-     parms.alias2←'the right side'
-     name1←'ErrMsg1'
-     name2←'ErrMsg2'
-     body1←⎕NR'#.Old.Dlgs.ErrMsg'
-     (1⊃body1)←'ErrMsg'{n←(¯1+⍴⍺)+1⍳⍨⍺⍷⍵ ⋄ (-n)⌽'1',n⌽⍵}1⊃body1
-     ⎕FX body1
-     body2←⎕NR'#.New.Dlgs.ErrMsg'
-     (1⊃body2)←'ErrMsg'{n←(¯1+⍴⍺)+1⍳⍨⍺⍷⍵ ⋄ (-n)⌽'2',n⌽⍵}1⊃body2
-     ⎕FX body2
+ parms←##.CompareSimple.CreateParmsFor_These
+ parms.readOnly1←0
+ parms.alias1←'the left side'
+ parms.alias2←'the right side'
+ name1←'ErrMsg1'
+ name2←'ErrMsg2'
+ body1←⎕NR'#.Old.Dlgs.ErrMsg'
+ (1⊃body1)←'ErrMsg'{n←(¯1+⍴⍺)+1⍳⍨⍺⍷⍵ ⋄ (-n)⌽'1',n⌽⍵}1⊃body1
+ ⎕FX body1
+ body2←⎕NR'#.New.Dlgs.ErrMsg'
+ (1⊃body2)←'ErrMsg'{n←(¯1+⍴⍺)+1⍳⍨⍺⍷⍵ ⋄ (-n)⌽'2',n⌽⍵}1⊃body2
+ ⎕FX body2
 
-     parms ##.CompareSimple.These name1 name2
+ files←parms ##.CompareSimple.These name1 name2
+ →T.GoToTidyUp~∧/⎕NEXISTS files
 
-     ⍝ Tidy up
-     ⎕EX¨'ErrMsg1' 'ErrMsg2'
-     R←T._OK
- :Else
-     R←T._NoBatchTest
- :EndIf
+ R←T._OK
+
+∆TidyUp:
+ FilesAndDirs.DeleteFile files
+ ⎕EX¨'ErrMsg1' 'ErrMsg2'
+⍝Done

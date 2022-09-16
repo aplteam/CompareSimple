@@ -3,7 +3,9 @@
 
 ## Overview
 
-`CompareSimple` offers a couple of methods designed to compare functions, operators, scripts and files. It is also able to deal with SALTed or Linked files.
+`CompareSimple` offers a couple of methods designed to compare functions, operators, scripts and files. 
+
+It cooperates with Link and acre.
 
 
 ## Methods
@@ -37,12 +39,12 @@ Compare the workspace script with the file.
 
 #### Script
 
-This syntax requires "Script" to be managed either by SALT or by acre.
+This syntax requires "Script" to be managed either by Link or by acre.
 
-    If it is managed by acre then a dialog pops up with the number of all versions saved by acre.
-    If it is managed by SALT the workspace script is compared with its SALTed source file. 
+* If it is managed by Link the workspace script is compared with its Linked source file. 
+* If it is managed by acre then a dialog pops up with the number of all versions saved by acre.
 
-Note however that for acre this requires the script in question to be a member of an opened acre project at the time the comparison is carried out.
+Note that for acre this requires the script in question to be a member of an opened acre project at the time the comparison is carried out.
 
 
 #### Name of a native file / name of a native file
@@ -74,4 +76,4 @@ Note that the function in question must be a member of an opened acre project at
 
 #### Namespace / namespace
 
-Note that this works only with named namespaces, although the arguments might be either references or names pointing to the two namespaces. 
+Note that this works only with named namespaces, not with unnamed namespaces.

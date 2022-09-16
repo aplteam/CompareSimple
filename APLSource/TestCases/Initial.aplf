@@ -3,7 +3,5 @@
  ⎕IO←1 ⋄ ⎕ML←1
  Cleanup
  CopyTestData GetFileRoot
- ∆AcreFlag←1   ⍝ Since acre 3 this is not a problem any more.
- ##.CompareSimple.pathToCompareIt←##.CompareSimple.FindCompareIt 1
- ##.CompareSimple.pathToBeyondCompare←##.CompareSimple.FindBeyondCompare 1
+ ##.CompareSimple.NoComparison←1
 ⍝Done

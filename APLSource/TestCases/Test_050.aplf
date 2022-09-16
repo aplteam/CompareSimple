@@ -1,0 +1,42 @@
+ R←Test_050(stopFlag batchFlag);parms;⎕TRAP;tempDir;res;changeFlags;orig;new;was
+⍝ Exercise "These" with two objects, one of which is Linked.  The user is supposed to change the left (LINKed) one
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ :If batchFlag
+     R←T._NoBatchTest
+     :Return
+ :EndIf
+
+ 0 0⍴⍞,0/⎕←'This test needs you: when the comparison tool appears change the left panel. Press <enter> to continue'
+
+ #.⎕SHADOW'TEMP1' ⋄ '#.TEMP1'⎕NS''
+ #.⎕SHADOW'TEMP2' ⋄ '#.TEMP2'⎕NS''
+
+ #.TEMP1.⎕FX'r←Hello' 'r←''World'''
+ #.TEMP2.⎕FX'r←Hello' 'r←''Universe''' '⍝ Second version'
+
+ tempDir←FilesAndDirs.GetTempSubDir⊃⎕SI
+ res←⎕SE.Link.Create'#.TEMP1'tempDir
+ Assert'Linked: #.TEMP1 ←→'{⍺≡(≢⍺)↑⍵}res
+ orig←⊃⎕NGET tempDir,'\Hello.aplf'
+
+ parms←##.CompareSimple.CreateParmsFor_These
+ parms.readOnly1←0
+ parms.alias1←'Left'
+ parms.alias2←'Right'
+
+ was←##.CompareSimple.NoComparison
+ ##.CompareSimple.NoComparison←0
+ changeFlags←parms ##.CompareSimple.These'#.TEMP1.Hello' '#.TEMP2.Hello'
+ →T.GoToTidyUp 1 0≢changeFlags
+ new←⊃⎕NGET tempDir,'\Hello.aplf'
+ →T.GoToTidyUp orig≡new
+
+ R←T._OK
+
+∆TidyUp:
+{} ⎕SE.Link.Break'#.TEMP1'
+ FilesAndDirs.RmDir tempDir
+ ##.CompareSimple.NoComparison←was
+⍝Done

@@ -40,11 +40,6 @@
  →T.FailsIf 0≠Container.APLTreeUtils ##.CompareSimple.Match Container.APLTeamUtilsOld
 
  ⍝ ##.CompareSimple.Match namespaceScriptName (they are different)
-
- 'SALT_Data'##.APLTreeUtils2.⎕NS''
- ##.APLTreeUtils2.SALT_Data.SourceFile←GetFileRoot,'IsAlsoAPLTreeUtils.dyalog'
- →T.FailsIf 0≠##.CompareSimple.Match ##.APLTreeUtils2
-
  →T.FailsIf 1≠MatchTest ##.CompareSimple.Match GetFileRoot,'MatchTest.dyalog'
 
  ⍝ (The match does not matter: this is about the blanks in the filename)

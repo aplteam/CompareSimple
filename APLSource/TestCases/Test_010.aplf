@@ -1,15 +1,14 @@
- R←Test_010(stopFlag batchFlag);filename;name;saveSourceFile;name1;name2;parms;list;pattern;⎕TRAP
-⍝ Exercise "These" with function name and a filename; uses BeyondCompare
+ R←Test_010(stopFlag batchFlag);filename;name;saveSourceFile;name1;name2;parms;list;pattern;⎕TRAP;files
+⍝ Exercise "These" with function name and a filename
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
  R←T._Failed
- :If 1≢batchFlag
-     ##.CompareSimple.compareTool←'BeyondCompare'
-     filename←##.CompareSimple.WriteAplObjToFile'#.Old.Dlgs.AskString_.Make'  ⍝ Error? Initial did not run?!
-     name←'#.New.Dlgs.AskString_.Make'
-     ##.CompareSimple.These name('file://',filename)
-     ##.FilesAndDirs.DeleteFile filename
+ filename←##.CompareSimple.WriteAplObjToFile'#.Old.Dlgs.AskString_.Make'  ⍝ Error? Initial did not run?!
+ name←'#.New.Dlgs.AskString_.Make'
+ files←##.CompareSimple.These name('file://',filename)
+ →T.GoToTidyUp~∧/⎕NEXISTS files
 
-     R←T._OK
- :Else
-     R←T._NoBatchTest
- :EndIf
+ R←T._OK
+
+∆TidyUp:
+ FilesAndDirs.DeleteFile files
+ ⍝Done

@@ -8,7 +8,7 @@
  filename←##.CompareSimple.WriteToFile buffer
  buffer2←⊃,/⊃⎕NGET filename 1
  →T.FailsIf buffer≢buffer2
- ##.FilesAndDirs.DeleteFile filename
+ FilesAndDirs.DeleteFile filename
 
  ⍝ Function name: ',fnsName←1⊃⎕XSI
  fnsName←'#.New.Dlgs.SortIndex'
@@ -18,6 +18,6 @@
  buffer2←{⍵↓⍨-+/∧\(⌽⍵)∊¨⊂⎕UCS 9 10 13 32}buffer2
  buffer2←{((⎕UCS 13)@(⍸⍵=⎕UCS 10))⍵}buffer2
  →T.FailsIf buffer≢buffer2
- ##.FilesAndDirs.DeleteFile filename
+ FilesAndDirs.DeleteFile filename
 
  R←T._OK

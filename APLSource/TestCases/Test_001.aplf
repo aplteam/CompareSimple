@@ -2,16 +2,16 @@
 ⍝ Exercise "Match"
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
  R←T._Failed
- filename←##.FilesAndDirs.GetTempFilename''
- ##.FilesAndDirs.DeleteFile filename  ⍝ Just in case
+ filename←FilesAndDirs.GetTempFilename''
+ FilesAndDirs.DeleteFile filename  ⍝ Just in case
  content←'This is a Unicode file' 'With UTF16-little-endian encoding.'
  encoding←'UTF-16LE'
  (content encoding)⎕NPUT filename
 
  buff←##.CompareSimple.Exec'ReadFile ''',filename,''''
- →T.PassesIf content≡buff
+ →T.GoToTidyUp content≢buff
 
  R←T._OK
 
 ∆TidyUp:
- ##.FilesAndDirs.DeleteFile filename
+ FilesAndDirs.DeleteFile filename

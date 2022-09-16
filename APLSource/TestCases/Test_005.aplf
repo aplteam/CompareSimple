@@ -4,23 +4,22 @@
 
  R←T._Failed
 
-
  ⍝Function name:
  filename←##.CompareSimple.WriteAplObjToFile'#.Old.Dlgs.ErrMsg'
  buffer←⊃⎕NGET filename 1
- ##.FilesAndDirs.DeleteFile filename
+ FilesAndDirs.DeleteFile filename
  →T.FailsIf 95 185≢⍴↑buffer
 
  ⍝ Script name:
  filename←##.CompareSimple.WriteAplObjToFile'#.Old.ADOC'
  buffer←⊃⎕NGET filename 1
- ##.FilesAndDirs.DeleteFile filename
+ FilesAndDirs.DeleteFile filename
  →T.FailsIf 2008 413≢⍴↑buffer
 
- ⍝Script reference:
+ ⍝ Script reference:
  filename←##.CompareSimple.WriteAplObjToFile #.Old.ADOC
  buffer←⊃⎕NGET filename 1
- ##.FilesAndDirs.DeleteFile filename
+ FilesAndDirs.DeleteFile filename
  →T.FailsIf 2008 413≢⍴↑buffer
 
  R←T._OK

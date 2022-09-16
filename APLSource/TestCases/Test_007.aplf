@@ -1,20 +1,19 @@
- R←Test_007(stopFlag batchFlag);filename;body;⎕TRAP
-⍝ Compare function in WS with a single-function SALT file with the extension .dyalog. Was once a bug.
+ R←Test_007(stopFlag batchFlag);filename;body;⎕TRAP;files
+⍝ Exercise These: compare function in WS with a file with the extension .dyalog. Was once a bug.
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
  R←T._Failed
-
- :If 1≡batchFlag
-     R←T._NoBatchTest
-     :Return
- :EndIf
 
  #.⎕SHADOW'TEMP'
  'TEMP'#.⎕NS''
  #.TEMP.⎕FX'r←Hello' 'r←''World'''
- filename←'dyalog'##.FilesAndDirs.GetTempFilename2''
+ filename←'dyalog'FilesAndDirs.GetTempFilename2''
  body←'r←Hello' 'r←''Universe'''
  (⊂body)⎕NPUT filename 1
- ##.CompareSimple.These'#.TEMP.Hello'('file://',filename)
- ##.FilesAndDirs.DeleteFile filename
+ files←##.CompareSimple.These'#.TEMP.Hello'('file://',filename)
+ →T.GoToTidyUp 0∊⎕NEXISTS files
 
  R←T._OK
+
+∆TidyUp:
+ FilesAndDirs.DeleteFile files
+⍝Done
