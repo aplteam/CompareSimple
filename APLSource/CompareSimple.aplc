@@ -22,7 +22,7 @@
 
     ∇ r←Version
       :Access Public shared
-      r←'CompareSimple' '6.0.0-rc-1+33' '2022-09-13'
+      r←'CompareSimple' '6.0.0+35' '2022-09-19'
     ∇
 
     ∇ History
@@ -33,7 +33,7 @@
       ⍝     if not available, just returns the filenames rather than change flags.
       ⍝   * BREAKING CHANGE:
       ⍝     SALT is not supported anymore.
-      ⍝   * Now cooperates with Link
+      ⍝   * Now informs Link about any changes
       ⍝ * 5.0.1
       ⍝   * Package config corrected
       ⍝ * 5.0.0

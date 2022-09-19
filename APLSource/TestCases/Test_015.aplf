@@ -6,10 +6,7 @@
  f1←'file://',GetFileRoot,'IsAlsoAPLTreeUtils.dyalog'
  f2←'file://',GetFileRoot,'AnotherAPLTreeUtils.dyalog'
  files←##.CompareSimple.These f1 f2
- →T.GoToTidyUp~∧/⎕NEXISTS files
+ →T.PassesIf∧/⎕NEXISTS files
 
  R←T._OK
-
-∆TidyUp:
- FilesAndDirs.DeleteFile files
 ⍝Done

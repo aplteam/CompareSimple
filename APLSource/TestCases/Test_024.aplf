@@ -6,10 +6,7 @@
  filename←'file://',GetFileRoot,'Filename with blanks.txt'
  name←'#.Old.ADOC'
  files←##.CompareSimple.These name filename
- →T.GoToTidyUp~∧/⎕NEXISTS files
+ →T.PassesIf ∧/⎕NEXISTS files
 
  R←T._OK
-
-∆TidyUp:
- FilesAndDirs.DeleteFile files
 ⍝Done

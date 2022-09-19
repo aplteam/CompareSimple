@@ -10,11 +10,10 @@
 
  0 0⍴⍞,0/⎕←'This test needs you: when the comparison tool appears change the left panel. Press <enter> to continue'
 
- #.⎕SHADOW'TEMP1' ⋄ '#.TEMP1'⎕NS''
- #.⎕SHADOW'TEMP2' ⋄ '#.TEMP2'⎕NS''
+ '#.TEMP1' '#.TEMP2'⎕NS¨⊂''
 
- #.TEMP1.⎕FX'r←Hello' 'r←''World'''
- #.TEMP2.⎕FX'r←Hello' 'r←''Universe''' '⍝ Second version'
+ #.TEMP1.⎕FX' r←Hello' ' r←''World'''
+ #.TEMP2.⎕FX' r←Hello' ' r←''Universe''' '⍝ Second version'
 
  tempDir←FilesAndDirs.GetTempSubDir⊃⎕SI
  res←⎕SE.Link.Create'#.TEMP1'tempDir
@@ -29,6 +28,7 @@
  was←##.CompareSimple.NoComparison
  ##.CompareSimple.NoComparison←0
  changeFlags←parms ##.CompareSimple.These'#.TEMP1.Hello' '#.TEMP2.Hello'
+
  →T.GoToTidyUp 1 0≢changeFlags
  new←⊃⎕NGET tempDir,'\Hello.aplf'
  →T.GoToTidyUp orig≡new
@@ -36,7 +36,8 @@
  R←T._OK
 
 ∆TidyUp:
-{} ⎕SE.Link.Break'#.TEMP1'
- FilesAndDirs.RmDir tempDir
+ {}⎕SE.Link.Break'#.TEMP1'
+ #.⎕EX¨'TEMP1' 'TEMP2'
  ##.CompareSimple.NoComparison←was
+ FilesAndDirs.RmDir tempDir
 ⍝Done

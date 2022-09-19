@@ -1,5 +1,5 @@
- R←Test_051(stopFlag batchFlag);parms;⎕TRAP;tempDir;res;changeFlags;orig;new;was
-⍝ Exercise "These" with two objects, one of which is Linked. The user is supposed to change the right (LINKed) one
+ R←Test_053(stopFlag batchFlag);parms;⎕TRAP;tempDir;res;changeFlags;new;was
+⍝ Exercise "These" with two objects, one of which is Linked. The user is supposed to change the left (non-LINKed) one
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
  R←T._Failed
 
@@ -8,7 +8,7 @@
      :Return
  :EndIf
 
- 0 0⍴⍞,0/⎕←'This test needs you: when the comparison tool appears change the right panel. Press <enter> to continue'
+ 0 0⍴⍞,0/⎕←'This test needs you: when the comparison tool appears change the left panel. Press <enter> to continue'
 
  '#.TEMP1' '#.TEMP2'⎕NS¨⊂''
 
@@ -18,7 +18,6 @@
  tempDir←FilesAndDirs.GetTempSubDir⊃⎕SI
  res←⎕SE.Link.Create'#.TEMP2'tempDir
  Assert'Linked: #.TEMP2 ←→'{⍺≡(≢⍺)↑⍵}res
- orig←⊃⎕NGET tempDir,'\Hello.aplf'
 
  parms←##.CompareSimple.CreateParmsFor_These
  parms.readOnly1←0
@@ -28,9 +27,9 @@
  was←##.CompareSimple.NoComparison
  ##.CompareSimple.NoComparison←0
  changeFlags←parms ##.CompareSimple.These'#.TEMP1.Hello' '#.TEMP2.Hello'
- →T.GoToTidyUp 0 1≢changeFlags
- new←⊃⎕NGET tempDir,'\Hello.aplf'
- →T.GoToTidyUp orig≡new
+ →T.GoToTidyUp 1 0≢changeFlags
+ →T.GoToTidyUp' r←Hello' ' r←''World'''≡#.TEMP1.⎕NR'Hello'
+ →T.GoToTidyUp' r←Hello' ' r←''Universe''' '⍝ Second version'≢#.TEMP2.⎕NR'Hello'
 
  R←T._OK
 
