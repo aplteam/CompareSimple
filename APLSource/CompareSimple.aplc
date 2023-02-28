@@ -22,11 +22,13 @@
 
     ∇ r←Version
       :Access Public shared
-      r←'CompareSimple' '6.0.0+35' '2022-09-19'
+      r←'CompareSimple' '6.0.1-beta-2+35' '2023-02-28'
     ∇
 
     ∇ History
       :Access Public shared
+      ⍝ * 6.0.1
+      ⍝   `Merge` ignored the `readOnly[1|2] flags
       ⍝ * 6.0.0
       ⍝   * BREAKING CHANGE:
       ⍝     Does not run any comparison itself anymore but relies on the presence of ⎕SE.CompareFiles or,
@@ -240,9 +242,9 @@
               :Else
                   parms←⍎'⎕se.CompareFiles.ComparisonTools.CreateParmsFor',name
                   parms.(file1 file2)←file1 file2
-                  parms.(caption1 caption2)←⊂''
+                  parms.(caption1 caption2)←G.(alias1 alias2)
                   parms.use←exe
-                  parms.(edit1 edit2)←1
+                  parms.(edit1 edit2)←~G.(readOnly1 readOnly2)
                   orig←{⊃⎕NGET ⍵ 1}¨file1 file2
                   {}⎕SE.CompareFiles.Compare parms
                   bodies←{⊃⎕NGET ⍵ 1}¨file1 file2
