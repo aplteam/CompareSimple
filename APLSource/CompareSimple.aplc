@@ -28,6 +28,10 @@
     ∇ History
       :Access Public shared
       ⍝ * 6.0.1
+      ⍝   * Bug Fixes
+      ⍝     * `These` did not honour the parameters readOnly1
+      ⍝     * 
+      ⍝   * Tests amended
       ⍝   * Dependencies updated 
       ⍝ * 6.0.0
       ⍝   * BREAKING CHANGE:
