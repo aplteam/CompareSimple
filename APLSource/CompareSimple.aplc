@@ -15,22 +15,18 @@
 ⍝ Compare offers more features but is also bigger and more complicated.
 ⍝ If `CompareSimple` suits your needs, take it.
 ⍝ If not then have a look at `Compare`.\\
-⍝ Author: Kai Jaeger
-⍝ Homepage: <https://github.com/aplteam/CompareSimple>
 
     ⎕IO←1 ⋄ ⎕ML←1
 
     ∇ r←Version
       :Access Public shared
-      r←'CompareSimple' '6.0.1+35' '2023-03-01'
+      r←'CompareSimple' '6.0.1+35' '2023-03-08'
     ∇
 
     ∇ History
       :Access Public shared
       ⍝ * 6.0.1
-      ⍝   * Bug Fixes
-      ⍝     * `These` did not honour the parameters readOnly1
-      ⍝     * 
+      ⍝   * Bug Fix: `These` did not honour the parameters readOnly1 & readOnly2
       ⍝   * Tests amended
       ⍝   * Dependencies updated 
       ⍝ * 6.0.0

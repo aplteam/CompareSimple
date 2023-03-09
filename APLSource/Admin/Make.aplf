@@ -1,9 +1,10 @@
- Make flag;M;C;path;zipFilename;res;version
+ Make flag;M;C;path;zipFilename;res;version;cfg
  :If flag
      M←⎕SE.MakeHelpers
      C←##.CiderConfig
      path←C.HOME,'/Dist/'
-     version←M.CompileVersionNumberPattern C.HOME
+     cfg←M.GetPackageCfg C.HOME
+     version←M.CompileVersionNumberPattern cfg
      M.RecreateFolder path
      zipFilename←⎕SE.Tatin.BuildPackage C.HOME path version
      ⎕←'*** New version build successfully:',M.CR,'   ',zipFilename
