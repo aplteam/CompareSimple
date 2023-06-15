@@ -8,7 +8,7 @@
      :Return
  :EndIf
 
- 0 0⍴⍞,0/⎕←'This test needs you: when the comparison tool appears change the left panel. Press <enter> to continue'
+ CommTools.Pause'This test needs you: when the comparison tool appears change the left panel. Press <enter> to continue'
 
  '#.TEMP1' '#.TEMP2'⎕NS¨⊂''
 
