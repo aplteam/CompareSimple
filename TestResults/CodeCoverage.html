@@ -127,7 +127,7 @@ ul li, ol li {margin: 8pt 3pt;}
 <tr><th>Executed at</th><th>APLVersion</th><th>Memory (MB)</th></tr>
 </thead>
 <tbody>
-<tr><td>2025-03-28 16:04:59</td><td>Windows-64 ⋄ 19.0.50771.0 ⋄ W ⋄ Development ⋄ Unicode</td><td>111</td></tr>
+<tr><td>2025-04-05 14:40:44</td><td>Windows-64 ⋄ 19.0.50771.0 ⋄ W ⋄ Development ⋄ Unicode</td><td>113</td></tr>
 </tbody>
 </table>
 <p>Overall 74% of the testable code is covered.</p>
@@ -141,8 +141,8 @@ ul li, ol li {margin: 8pt 3pt;}
 <tbody>
 <tr class="uncovered"><td><a href="#listing_1" title="Link to listing">#.CompareSimple.CompareSimple.ShowMsg</a></td><td>9←≢1-9</td><td>0</td><td>9</td></tr>
 <tr><td><a href="#listing_2" title="Link to listing">#.CompareSimple.CompareSimple.ReadFile</a></td><td>4←≢8-9,11-12</td><td>50</td><td>8</td></tr>
-<tr><td><a href="#listing_3" title="Link to listing">#.CompareSimple.CompareSimple.Version</a></td><td>5, 11</td><td>60</td><td>5</td></tr>
-<tr><td><a href="#listing_4" title="Link to listing">#.CompareSimple.CompareSimple.SetChanged</a></td><td>4←≢4-7</td><td>60</td><td>10</td></tr>
+<tr><td><a href="#listing_3" title="Link to listing">#.CompareSimple.CompareSimple.SetChanged</a></td><td>4←≢4-7</td><td>60</td><td>10</td></tr>
+<tr><td><a href="#listing_4" title="Link to listing">#.CompareSimple.CompareSimple.Version</a></td><td>9</td><td>67</td><td>3</td></tr>
 <tr><td><a href="#listing_5" title="Link to listing">#.CompareSimple.CompareSimple.RemoveLeadingAndTrailingBlanks</a></td><td>2</td><td>67</td><td>3</td></tr>
 <tr><td><a href="#listing_6" title="Link to listing">#.CompareSimple.CompareSimple.Match</a></td><td>8←≢14-18,22-24</td><td>72</td><td>29</td></tr>
 <tr><td><a href="#listing_7" title="Link to listing">#.CompareSimple.CompareSimple.These</a></td><td>19←≢56-57,92-93,98,136,151,158-161,163,165-166,174,181-183,185</td><td>81</td><td>100</td></tr>
@@ -281,22 +281,7 @@ $(document).ready(function() {
 <code> [14]      :EndTrap</code>
 <code> [15]  :EndIf</code>
 </div>
-<code class="header" id="listing_3">#.CompareSimple.CompareSimple.Version &mdash; 60%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
-<div class="code-block"><code>  r←Version</code>
-<code> [1]   :Access Public Shared</code>
-<code> [2]      ⍝ Returns the version number from `TatinVars` if possible.</code>
-<code> [3]      ⍝ See also `History`</code>
-<code> [4]   :If 0&lt;⎕NC'TatinVars.CONFIG'</code>
-<code class="emphasize">→[5]       r←(⎕JSON⍠('Dialect' 'JSON5')⊢TatinVars.CONFIG).version</code>
-<code> [6]   :ElseIf 0&lt;##.⎕NC'TatinVars.CONFIG'</code>
-<code> [7]       r←(⎕JSON⍠('Dialect' 'JSON5')⊢##.TatinVars.CONFIG).version</code>
-<code> [8]   :Else</code>
-<code> [9]      ⍝ When a script was not loaded with Tatin, there will be no namespace `TatinVars`.</code>
-<code> [10]     ⍝ In such cases we cannot provide a version number, so we return just ''.</code>
-<code class="emphasize">→[11]      r←''</code>
-<code> [12]  :EndIf</code>
-</div>
-<code class="header" id="listing_4">#.CompareSimple.CompareSimple.SetChanged &mdash; 60%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<code class="header" id="listing_3">#.CompareSimple.CompareSimple.SetChanged &mdash; 60%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
 <div class="code-block"><code>  {r}←SetChanged name</code>
 <code> [1]      ⍝ Tells Link (and acre) that `name` got changed. Returns 1 in case Link/acre was interested and 0 otherwise.</code>
 <code> [2]   r←0</code>
@@ -313,6 +298,19 @@ $(document).ready(function() {
 <code> [13]          r←1</code>
 <code> [14]      :EndIf</code>
 <code> [15]  :EndIf</code>
+</div>
+<code class="header" id="listing_4">#.CompareSimple.CompareSimple.Version &mdash; 67%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  r←Version</code>
+<code> [1]   :Access Public Shared</code>
+<code> [2]      ⍝ Returns the version number from `TatinVars` if possible.</code>
+<code> [3]      ⍝ See also `History`</code>
+<code> [4]   :If 0&lt;##.⎕NC'TatinVars.CONFIG'</code>
+<code> [5]       r←(⎕JSON⍠('Dialect' 'JSON5')⊢##.TatinVars.CONFIG).version</code>
+<code> [6]   :Else</code>
+<code> [7]      ⍝ When a script was not loaded with Tatin, there will be no namespace `TatinVars`.</code>
+<code> [8]      ⍝ In such cases we cannot provide a version number, so we return just ''.</code>
+<code class="emphasize">→[9]       r←''</code>
+<code> [10]  :EndIf</code>
 </div>
 <code class="header" id="listing_5">#.CompareSimple.CompareSimple.RemoveLeadingAndTrailingBlanks &mdash; 67%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
 <div class="code-block"><code> r←RemoveLeadingAndTrailingBlanks r</code>
@@ -587,7 +585,7 @@ $(document).ready(function() {
 <code class="header" id="listing_10">#.CompareSimple.CompareSimple.History &mdash; 100%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
 <div class="code-block"><code>  History</code>
 <code> [1]   :Access Public shared</code>
-<code> [2]        ⍝ * 7.0.0</code>
+<code> [2]        ⍝ * 7.0.0 ⋄ 2025-04-05</code>
 <code> [3]        ⍝   * Syntax change: `Version` returns a simple string with the version number according to the package config file</code>
 <code> [4]        ⍝   * Packages updated</code>
 <code> [5]        ⍝   * `Make` improved</code>
@@ -654,7 +652,7 @@ $(document).ready(function() {
 <div class="code-block missing">Could not get canonical representation.</div>
 <div id="footer">
 <hr>
-<p>Created by "CodeCoverage" version 0.10.2+52 from 2023-04-09</p>
+<p>Created by "CodeCoverage" version 0.10.7+52 from 2024-06-05</p>
 </div>
 
 </body>

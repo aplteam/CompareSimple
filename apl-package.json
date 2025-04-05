@@ -19,5 +19,5 @@
   source: "APLSource/CompareSimple.aplc",
   tags: "comparison-tool",
   userCommandScript: "",
-  version: "7.0.0+42",
+  version: "7.0.0+43",
 }
