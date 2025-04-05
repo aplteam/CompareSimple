@@ -19,16 +19,28 @@
     ⎕IO←1 ⋄ ⎕ML←1
 
     ∇ r←Version
-      :Access Public shared
-      r←'CompareSimple' '6.0.1+35' '2023-03-08'
+    :Access Public Shared
+    ⍝ Returns the version number from `TatinVars` if possible.
+    ⍝ See also `History`
+      :If 0<##.⎕NC'TatinVars.CONFIG'
+          r←(⎕JSON⍠('Dialect' 'JSON5')⊢##.TatinVars.CONFIG).version
+      :Else
+    ⍝ When a script was not loaded with Tatin, there will be no namespace `TatinVars`.
+    ⍝ In such cases we cannot provide a version number, so we return just ''.
+          r←''
+      :EndIf
     ∇
 
     ∇ History
       :Access Public shared
+      ⍝ * 7.0.0 ⋄ 2025-04-05
+      ⍝   * Syntax change: `Version` returns a simple string with the version number according to the package config file
+      ⍝   * Packages updated
+      ⍝   * `Make` improved
       ⍝ * 6.0.1
       ⍝   * Bug Fix: `These` did not honour the parameters readOnly1 & readOnly2
       ⍝   * Tests amended
-      ⍝   * Dependencies updated 
+      ⍝   * Dependencies updated
       ⍝ * 6.0.0
       ⍝   * BREAKING CHANGE:
       ⍝     Does not run any comparison itself anymore but relies on the presence of ⎕SE.CompareFiles or,
@@ -36,15 +48,6 @@
       ⍝   * BREAKING CHANGE:
       ⍝     SALT is not supported anymore.
       ⍝   * Now informs Link about any changes
-      ⍝ * 5.0.1
-      ⍝   * Package config corrected
-      ⍝ * 5.0.0
-      ⍝   * BREAKING CHANGES:
-      ⍝     * `refToUtils` removed. All dependencies are now expected to be siblings of the class.
-      ⍝     * `SetChanged` now returns 1 in case acre was interested and 0 otherwise.
-      ⍝   * Internal changes:
-      ⍝     * Does not handle ANSI files anymore
-      ⍝     * Couple of private functions deleted that are not used any longer
       ⍝\\
       ⍝ For information regarding older versions see <https://github.com/aplteam/CompareSimple/releases>
     ∇
@@ -363,25 +366,6 @@
     ∇
 
  ⍝⍝⍝⍝⍝ Private stuff
-
-    ∇ r←FormatTS ts
-      r←{
-          0=≢⍵:''
-          0=+/⍵:''
-          ,'ZI4,<->,ZI2,<->,ZI2,< >,ZI2,<:>,ZI2,<:>,ZI2'⎕FMT,[0.5]6↑⍵
-      }ts
-    ∇
-
-    ∇ flag←{caption}YesOrNo question;∆;ms
-      caption←{0<|⎕NC ⍵:'Compare: ',⍎⍵ ⋄ 'Compare'}'caption'
-      ∆←⊂'MsgBox'
-      ∆,←⊂caption
-      ∆,←⊂'Text'question
-      ∆,←⊂'Style' 'Query'
-      ∆,←⊂'Event'('MsgBtn1' 'MsgBtn2')1
-      'ms'⎕WC ∆
-      flag←'MsgBtn1'≡2⊃⎕DQ'ms'
-    ∇
 
     ∇ {r}←{caption}ShowMsg question;∆;ms
       r←⍬

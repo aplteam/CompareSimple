@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Coverage</title>
+<meta charset="utf-8"/>
+<style>
+@media screen{
+    html {background-color: #FFFFF0;}
+body {
+    font-size: 16px;
+    font-family : Verdana, "Bitstream Vera Sans", "DejaVu Sans", Tahoma, Geneva, Arial, Sans-serif;
+    margin: 1em;
+}
+th, td {padding: 5px 10px;}
+th {text-align: left;}
+h1, h2, h3, h4, h5, h6 {color: #424242;}
+h1 {font-size: 22px;}
+h2 {font-size: 18px; margin-top: 2em; margin-bottom:0.3em;}
+tbody tr:nth-child(even) {background-color: #F0F0F0;}
+tbody tr:nth-child(odd) {background-color: #FAFAFA;}
+th {background-color: #E6E6E6;color: #424242;}
+table {border: silver 1px solid; font-size: 14px;font-family: APLFont, monospace;}
+code , code a {font-size: 14px; font-family: APLFont, monospace;}
+code.header {
+    font-size: 16px; 
+    font-family: APLFont, monospace; 
+    margin: 1.5em 0.5em 0 0.5em; 
+    padding:0;
+    display: block;
+}
+div.code-block {
+    border: 1px silver dashed;
+    background-color: #F2F2F2;
+    display: block;
+    margin: 0.5em 0.5em 0.5em 0.5em;
+    padding: 0.5em;
+}
+div.code-block.missing {
+    background-color: #fa605254;
+}
+div.code-block code {display: block; white-space: pre-wrap; margin:0; padding:0; word-wrap: break-word;}
+.emphasize { font-weight: 800;}
+ul li, ol li {margin: 0.7em 0.2em;}
+.float-right {float:right;}
+.no-underline {    text-decoration :none;}
+.top-links {font-size:20px; padding-left: 0.6em;}
+.align-right {text-align: right;}
+#footer hr {margin-top:1.5em;}
+#footer p {margin-top:5px; padding-top:0; font-size: 9px;}
+@font-face {
+        font-family: "APLFont";
+    src:
+        local("APL385 Unicode"),
+        url("https://misc.aplteam.com/apl385.ttf") format("truetype");
+}
+.info {border: 1px silver dashed; background-color: #F2F2F2;margin: 0.5em; padding: 0.5em;}
+}
+@media print{@page {size: portrait}
+@page {
+    margin: 1cm 1cm 1cm 1.75cm;
+    @bottom-right {
+        content: counter(page) " / " counter(pages);
+  }
+}
+body {
+    font: 12pt "Times New Roman", Times, serif;
+    line-height: 1.2;
+     /* CSS3 filter, at the moment Webkit only. Prefix it for future implementations */
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%); /* future-proof */
+}
+h1 {font-size: 18pt;}
+h2 {font-size: 16pt; margin-top: 10pt; margin-bottom: 3pt;}
+th, td {padding: 2pt 3pt;}
+th {text-align: left;background-color: #DBDBDB;}
+tbody tr:nth-child(odd) {background-color: #EDEDED;}
+table {
+    color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    font-size: 8pt;
+    font-family: APLFont, monospace;
+}
+div.keep-together {break-inside: avoid; break-before:auto;}
+table {border: silver 1pt solid;}
+code , code a {font-size: 8pt; font-family: APLFont, monospace;}
+code.header {
+    font-size: 8pt;
+    font-family: APLFont, monospace;
+    margin: 7pt 3pt 0 10pt;
+    padding:0;
+    display: block;
+}
+div.code-block {
+    border: 1pt silver dashed;
+    background-color: #F2F2F2;
+    display: block;
+    margin: 4pt 4pt 4pt 4pt;
+    padding: 4pt;
+}
+div.code-block code {display: block; white-space: pre-wrap; margin:0; padding:0; word-wrap: break-word;}
+.emphasize { font-weight: 800;}
+a {text-decoration: none;color: black;}
+ul li, ol li {margin: 8pt 3pt;}
+.no-print {display:none;}
+.align-right {text-align: right;}
+#footer hr {margin-top:1.5em;}
+#footer p {margin-top:5pt; padding-top:0; font-size: 6pt;}
+@font-face {
+        font-family: "APLFont";
+    src:
+        local("APL385 Unicode"),
+        url("https://misc.aplteam.com/apl385.ttf") format("truetype");
+}
+.info {border: 1px silver dashed; background-color: #F2F2F2;margin: 8px; padding: 8px;}
+}
+</style>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.11.2/b-2.0.0/b-print-2.0.0/fh-3.1.9/r-2.2.9/datatables.min.css"/>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.11.2/b-2.0.0/b-print-2.0.0/fh-3.1.9/r-2.2.9/datatables.min.js"></script>
+</head>
+<body>
+<h1 id="top">Coverage Report</h1>
+<p>Watched: 15 fns/opr within <code>#.CompareSimple.CompareSimple</code></p>
+<p>The test suite was executed once:</p>
+<table>
+<thead>
+<tr><th>Executed at</th><th>APLVersion</th><th>Memory (MB)</th></tr>
+</thead>
+<tbody>
+<tr><td>2025-03-28 16:04:59</td><td>Windows-64 ⋄ 19.0.50771.0 ⋄ W ⋄ Development ⋄ Unicode</td><td>111</td></tr>
+</tbody>
+</table>
+<p>Overall 74% of the testable code is covered.</p>
+<p>(Comment lines, empty lines, all <code>:End</code>* lines etc. are ignored)</p>
+<p>8 of the fns/opr are 100% covered.</p>
+<div id="partly-covered" class="keep-together">
+<table id="percent">
+<thead>
+<tr><th style="text-align:left;">Function/Operator</th><th style="text-align:left;">Lines not executed</th><th style="text-align:left;">Coverage</th><th style="text-align:right;">≢</th></tr>
+</thead>
+<tbody>
+<tr class="uncovered"><td><a href="#listing_1" title="Link to listing">#.CompareSimple.CompareSimple.ShowMsg</a></td><td>9←≢1-9</td><td>0</td><td>9</td></tr>
+<tr><td><a href="#listing_2" title="Link to listing">#.CompareSimple.CompareSimple.ReadFile</a></td><td>4←≢8-9,11-12</td><td>50</td><td>8</td></tr>
+<tr><td><a href="#listing_3" title="Link to listing">#.CompareSimple.CompareSimple.Version</a></td><td>5, 11</td><td>60</td><td>5</td></tr>
+<tr><td><a href="#listing_4" title="Link to listing">#.CompareSimple.CompareSimple.SetChanged</a></td><td>4←≢4-7</td><td>60</td><td>10</td></tr>
+<tr><td><a href="#listing_5" title="Link to listing">#.CompareSimple.CompareSimple.RemoveLeadingAndTrailingBlanks</a></td><td>2</td><td>67</td><td>3</td></tr>
+<tr><td><a href="#listing_6" title="Link to listing">#.CompareSimple.CompareSimple.Match</a></td><td>8←≢14-18,22-24</td><td>72</td><td>29</td></tr>
+<tr><td><a href="#listing_7" title="Link to listing">#.CompareSimple.CompareSimple.These</a></td><td>19←≢56-57,92-93,98,136,151,158-161,163,165-166,174,181-183,185</td><td>81</td><td>100</td></tr>
+<tr class="fullyCovered"><td><a href="#listing_8" title="Link to listing">#.CompareSimple.CompareSimple.set_NoComparison</a></td><td></td><td>100</td><td>1</td></tr>
+<tr class="fullyCovered"><td><a href="#listing_9" title="Link to listing">#.CompareSimple.CompareSimple.get_NoComparison</a></td><td></td><td>100</td><td>1</td></tr>
+<tr class="fullyCovered"><td><a href="#listing_10" title="Link to listing">#.CompareSimple.CompareSimple.History</a></td><td></td><td>100</td><td>0</td></tr>
+<tr class="fullyCovered"><td><a href="#listing_11" title="Link to listing">#.CompareSimple.CompareSimple.WriteAplObjToFile</a></td><td></td><td>100</td><td>6</td></tr>
+<tr class="fullyCovered"><td><a href="#listing_12" title="Link to listing">#.CompareSimple.CompareSimple.WriteToFile</a></td><td></td><td>100</td><td>2</td></tr>
+<tr class="fullyCovered"><td><a href="#listing_13" title="Link to listing">#.CompareSimple.CompareSimple.CreateParmsFor_These</a></td><td></td><td>100</td><td>7</td></tr>
+<tr class="fullyCovered"><td><a href="#listing_14" title="Link to listing">#.CompareSimple.CompareSimple.Exec</a></td><td></td><td>100</td><td>1</td></tr>
+<tr class="fullyCovered"><td><a href="#listing_15" title="Link to listing">#.CompareSimple.CompareSimple.caption</a></td><td></td><td>100</td><td>0</td></tr>
+</tbody>
+</table>
+</div>
+<script>
+$(document).ready(function() {
+    var oTable;
+    oTable = $("#percent").DataTable( {
+        paging:   false,
+        ordering: true,
+        info:     true,
+        fixedHeader: true,
+        order: [2,"asc"],
+        dom: "Bft",
+        drawCallback: function( settings ) {
+             var api = this.api();
+             $('.header[id^="listing_"]').next().addBack().css("display","none");
+             api.rows( {page:"current"} ).data().each(function(data){
+              id = data[0];
+              id = id.match(/"(\#.*?)"/);
+              if (id){$(id[1]).next().addBack().css("display","block");}
+             })
+        },      
+        buttons: [
+        {
+            text: "Partly covered (6)",
+            titleAttr: "50%",
+            className: "active",
+            action: function ( e, dt, node, config ) {
+                var text = this.text();
+                var search = "^(?!(0%|100%)).*";
+                oTable.column(2)
+                    .search(search,true,false,false)
+                    .draw();
+                $(".dt-buttons button").removeClass("active");
+                this.active( true );
+            }
+        },
+        {
+            text: "Uncovered (1)",
+            titleAttr: "0%",
+            className: "active",
+            action: function ( e, dt, node, config ) {
+                var text = this.text();
+                var search = "^0%";
+                oTable.column(2)
+                    .search(search,true,false,false)
+                    .draw();
+                $(".dt-buttons button").removeClass("active");
+                this.active( true );
+            }
+        },
+        {
+            text: "Fully covered (8)",
+            titleAttr: "100%",
+            className: "active",
+            action: function ( e, dt, node, config ) {
+                var text = this.text();
+                var search = "100%";
+                oTable.column(2)
+                    .search(search,true,false,false)
+                    .draw();
+                $(".dt-buttons button").removeClass("active");
+                this.active( true );
+            }
+        },
+        {
+            text: "All (15)",
+            titleAttr: "all",
+            className: "active",
+            action: function ( e, dt, node, config ) {
+                var text = this.text();
+                var search = ".";
+                oTable.column(2)
+                    .search(search,true,false,false)
+                    .draw();
+                $(".dt-buttons button").removeClass("active");
+                this.active( true );
+            }
+        },
+    ],
+ 
+        columnDefs: [
+            {className: "align-right", targets: [2,3]
+            },
+            {
+                render: function ( data, type, row, meta ) {
+                            return data+"%" ;        
+                        },
+                targets: 2
+            }
+        ]             
+    } );
+    oTable.button(0).trigger();
+
+} );    
+</script>
+<h2>Listings</h2>
+<code class="header" id="listing_1">#.CompareSimple.CompareSimple.ShowMsg &mdash; 0%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  {r}←{caption}ShowMsg question</code>
+<code class="emphasize">→[1]   r←⍬</code>
+<code class="emphasize">→[2]   caption←{0&lt;|⎕NC ⍵:'Compare: ',⍎⍵ ⋄ 'Compare'}'caption'</code>
+<code class="emphasize">→[3]   ∆←⊂'MsgBox'</code>
+<code class="emphasize">→[4]   ∆,←⊂caption</code>
+<code class="emphasize">→[5]   ∆,←⊂'Text'question</code>
+<code class="emphasize">→[6]   ∆,←⊂'Style' 'Info'</code>
+<code class="emphasize">→[7]   ∆,←⊂'Event'('MsgBtn1')1</code>
+<code class="emphasize">→[8]   'ms'⎕WC ∆</code>
+<code class="emphasize">→[9]   {}⎕DQ'ms'</code>
+</div>
+<code class="header" id="listing_2">#.CompareSimple.CompareSimple.ReadFile &mdash; 50%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  r←ReadFile filename</code>
+<code> [1]    ⍝ Reads filename, no matter whether it's a UTF-8 file or a UTF16LE file.</code>
+<code> [2]    ⍝ Returns `''` in case the file does not eixst.</code>
+<code> [3]   r←''</code>
+<code> [4]   :If ##.FilesAndDirs.Exists filename</code>
+<code> [5]       :Trap 11</code>
+<code> [6]           r←⊃##.FilesAndDirs.NGET filename 1</code>
+<code> [7]       :Else</code>
+<code class="emphasize">→[8]           :Trap 11 92</code>
+<code class="emphasize">→[9]               r←↑'UTF16LE'##.FilesAndDirs.NGET filename 1</code>
+<code> [10]          :Else</code>
+<code class="emphasize">→[11]              qdmx←⎕DMX</code>
+<code class="emphasize">→[12]              qdmx.EM ⎕SIGNAL qdmx.EN</code>
+<code> [13]          :EndTrap</code>
+<code> [14]      :EndTrap</code>
+<code> [15]  :EndIf</code>
+</div>
+<code class="header" id="listing_3">#.CompareSimple.CompareSimple.Version &mdash; 60%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  r←Version</code>
+<code> [1]   :Access Public Shared</code>
+<code> [2]      ⍝ Returns the version number from `TatinVars` if possible.</code>
+<code> [3]      ⍝ See also `History`</code>
+<code> [4]   :If 0&lt;⎕NC'TatinVars.CONFIG'</code>
+<code class="emphasize">→[5]       r←(⎕JSON⍠('Dialect' 'JSON5')⊢TatinVars.CONFIG).version</code>
+<code> [6]   :ElseIf 0&lt;##.⎕NC'TatinVars.CONFIG'</code>
+<code> [7]       r←(⎕JSON⍠('Dialect' 'JSON5')⊢##.TatinVars.CONFIG).version</code>
+<code> [8]   :Else</code>
+<code> [9]      ⍝ When a script was not loaded with Tatin, there will be no namespace `TatinVars`.</code>
+<code> [10]     ⍝ In such cases we cannot provide a version number, so we return just ''.</code>
+<code class="emphasize">→[11]      r←''</code>
+<code> [12]  :EndIf</code>
+</div>
+<code class="header" id="listing_4">#.CompareSimple.CompareSimple.SetChanged &mdash; 60%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  {r}←SetChanged name</code>
+<code> [1]      ⍝ Tells Link (and acre) that `name` got changed. Returns 1 in case Link/acre was interested and 0 otherwise.</code>
+<code> [2]   r←0</code>
+<code> [3]   :If r←0&lt;⎕SE.⎕NC'acre'</code>
+<code class="emphasize">→[4]   :AndIf 0&lt;≢⎕SE.acre.Projects''</code>
+<code class="emphasize">→[5]       result←⎕SE.UCMD'acre.SetChanged ',name</code>
+<code class="emphasize">→[6]       :If 0&lt;≢result</code>
+<code class="emphasize">→[7]           r←1</code>
+<code> [8]       :EndIf</code>
+<code> [9]   :EndIf</code>
+<code> [10]  :If 9=⎕SE.⎕NC'Link'</code>
+<code> [11]      buff←⎕SE.Link.Add name</code>
+<code> [12]      :If 0&lt;+/'Not found:' 'Not in a linked namespace:'{⍺≡(≢⍺)↑⍵}¨⊂buff</code>
+<code> [13]          r←1</code>
+<code> [14]      :EndIf</code>
+<code> [15]  :EndIf</code>
+</div>
+<code class="header" id="listing_5">#.CompareSimple.CompareSimple.RemoveLeadingAndTrailingBlanks &mdash; 67%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code> r←RemoveLeadingAndTrailingBlanks r</code>
+<code> [1]  :If 0 1∊⍨≡r</code>
+<code class="emphasize">→[2]      r/⍨←~(∧\' '=r)∧⌽∧\' '=⌽r</code>
+<code> [3]  :Else</code>
+<code> [4]      r←{⍵/⍨~(∧\' '=⍵)∨⌽∧\' '=⌽⍵}¨r</code>
+<code> [5]  :EndIf</code>
+</div>
+<code class="header" id="listing_6">#.CompareSimple.CompareSimple.Match &mdash; 72%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  bool←{x}Match y</code>
+<code> [1]   :Access Public Shared</code>
+<code> [2]        ⍝ `x` and `y` might be:</code>
+<code> [3]        ⍝ * a name of a fns/opr or a script, either from a namespace or a class.</code>
+<code> [4]        ⍝ * a reference to a script.</code>
+<code> [5]        ⍝ * a native file holding either a class or a namespace script.\\</code>
+<code> [6]        ⍝ `bool ←→ 1` if `x` and `y` are equal. Note that before actually comparing the two</code>
+<code> [7]        ⍝ of them, all leading and all trailing blanks are removed from the code.\\</code>
+<code> [8]        ⍝ Note that filenames **must** start with `file://` if they do not contain</code>
+<code> [9]        ⍝ one of these: `\` &amp; `/` &amp; `:`.\\</code>
+<code> [10]       ⍝ Note that the left argument is optional. However, you can omit the left</code>
+<code> [11]       ⍝ argument only when you specify a reference to a script as right argument.\\</code>
+<code> [12]       ⍝ If it's omitted, the vars SALT_Data.SourceFilename is taken.</code>
+<code> [13]  :If 0=|⎕NC'x'</code>
+<code class="emphasize">→[14]      'Right argument is not a reference'⎕SIGNAL 11/⍨⍬≢⍴y</code>
+<code class="emphasize">→[15]      'Right argument must be a ref to a class or an interface or a scripted namespace'⎕SIGNAL 11/⍨~(|⎕NC⊂⍕y)∊9.1 9.4 9.5</code>
+<code class="emphasize">→[16]      ('Could not find "(∆|Salt_Data).SourceFile" in ',⍕y)⎕SIGNAL 11/⍨~2∊(|y.⎕NC'∆.SourceFile'),(|y.⎕NC'SALT_Data.SourceFile')</code>
+<code class="emphasize">→[17]      SaltNS←⍎((⊃∘|y.⎕NC¨'∆' 'SALT_Data')⍳9)⊃'y.∆' 'y.SALT_Data'</code>
+<code class="emphasize">→[18]      ('"SourceFile" in ',(⍕SaltNS),' is empty')⎕SIGNAL 11/⍨0=≢x←'file://',SaltNS.SourceFile</code>
+<code> [19]  :EndIf</code>
+<code> [20]  :If 'file://'{⍺≡(⍴⍺)↑⍵}⎕C⍕x</code>
+<code> [21]  :OrIf ∨/':/\'∊⍕x ⍝ these chars cannot be part of an APL name, so they indicate a file</code>
+<code class="emphasize">→[22]      x←'file://'{⍵↓⍨(⍴⍺)×⍺≡(⍴,⍺)↑⍵}⍕x</code>
+<code class="emphasize">→[23]      body_x←⊃##.FilesAndDirs.NGET x 1</code>
+<code class="emphasize">→[24]      body_x←RemoveLeadingAndTrailingBlanks body_x</code>
+<code> [25]  :Else</code>
+<code> [26]      body_x←⍬</code>
+<code> [27]      :Trap 0</code>
+<code> [28]          :If (|⎕NC⊂⍕x)∊9.1 9.4 9.5</code>
+<code> [29]              body_x←RemoveLeadingAndTrailingBlanks ⎕SRC⍎⍕x</code>
+<code> [30]          :EndIf</code>
+<code> [31]      :EndTrap</code>
+<code> [32]      :If ⍬≡body_x</code>
+<code> [33]          body_x←RemoveLeadingAndTrailingBlanks ⎕NR x ⍝ fns/opr?!</code>
+<code> [34]      :EndIf</code>
+<code> [35]  :EndIf</code>
+<code> [36]  :If 'file://'{⍺≡(⍴⍺)↑⍵}⎕C⍕y</code>
+<code> [37]  :OrIf ∨/':/\'∊⍕y ⍝ these chars cannot be part of an APL name, so they indicate a file</code>
+<code> [38]      x←'file://'{⍵↓⍨(⍴⍺)×⍺≡(⍴,⍺)↑⍵}⍕x</code>
+<code> [39]      body_y←⊃##.FilesAndDirs.NGET y 1</code>
+<code> [40]      body_y←RemoveLeadingAndTrailingBlanks body_y</code>
+<code> [41]  :Else</code>
+<code> [42]      body_y←⍬</code>
+<code> [43]      :Trap 0</code>
+<code> [44]          :If (|⎕NC⊂⍕y)∊9.1 9.4 9.5</code>
+<code> [45]              body_y←RemoveLeadingAndTrailingBlanks ⎕SRC⍎⍕y</code>
+<code> [46]          :EndIf</code>
+<code> [47]      :EndTrap</code>
+<code> [48]      :If ⍬≡body_y</code>
+<code> [49]          body_y←RemoveLeadingAndTrailingBlanks ⎕NR y ⍝ fns/opr?!</code>
+<code> [50]      :EndIf</code>
+<code> [51]  :EndIf</code>
+<code> [52]  bool←body_x≡body_y</code>
+</div>
+<code class="header" id="listing_7">#.CompareSimple.CompareSimple.These &mdash; 81%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>   {r}←{parms}These y</code>
+<code> [1]    ;range1;dates1;temp_FN2;FN_2;fno2;range2;dates2;file2;body;bodies;lineNo;res;rc;G;cmd;f;file1;buffer;changeFlag</code>
+<code> [2]    :Access Public Shared</code>
+<code> [3]             ⍝ Compare two "things" with each other.</code>
+<code> [4]             ⍝</code>
+<code> [5]             ⍝ * Syntax I.: `(ref1 [ref2])←y`</code>
+<code> [6]             ⍝ * Syntax II.: `(name1 [name2])←y`</code>
+<code> [7]             ⍝ * Syntax III.: `(name ["file://",filename])←y`</code>
+<code> [8]             ⍝ * Syntax IV.: Just one name or one ref (`[2]` is then either a LINKed file or an acre-managed object)</code>
+<code> [9]             ⍝</code>
+<code> [10]            ⍝ Note that any references must point to scripts. `These` cannot deal with</code>
+<code> [11]            ⍝ ordinary namespaces (refs or names, it doesn't matter); see `Compare.Merge`</code>
+<code> [12]            ⍝ for this.</code>
+<code> [13]            ⍝</code>
+<code> [14]            ⍝ ## Compares y[1] with y[2].</code>
+<code> [15]            ⍝</code>
+<code> [16]            ⍝ If `y[2]` is omitted, `y[1]` is compared with the file the object is saved in (Link!).</code>
+<code> [17]            ⍝</code>
+<code> [18]            ⍝ `y[1]` as well as `y[2]` can be any of:</code>
+<code> [19]            ⍝</code>
+<code> [20]            ⍝ * Reference to a script in the workspace.</code>
+<code> [21]            ⍝ * Name of a function, operator or script in the workspace.</code>
+<code> [22]            ⍝ * Name of a script file (\*.dyalog).</code>
+<code> [23]            ⍝</code>
+<code> [24]            ⍝ The left argument can be a command space with all sorts of parameters.</code>
+<code> [25]            ⍝</code>
+<code> [26]            ⍝ By default, any changes made in a comparison tooare taken into account.</code>
+<code> [27]            ⍝</code>
+<code> [28]            ⍝ The following parameters can by specified from outside by passing a command space</code>
+<code> [29]            ⍝ as a left argument:</code>
+<code> [30]            ⍝</code>
+<code> [31]            ⍝ `readOnly1`, `readOnly2`, `alias1`, `alias2`, `reportChanges`</code>
+<code> [32]            ⍝</code>
+<code> [33]            ⍝ Example:</code>
+<code> [34]            ⍝ ~~~</code>
+<code> [35]            ⍝ parms←⎕ns ''</code>
+<code> [36]            ⍝ parms.readOnly1←0</code>
+<code> [37]            ⍝ parms.alias1←'foo'</code>
+<code> [38]            ⍝ parms.alias2←'blah</code>
+<code> [39]            ⍝</code>
+<code> [40]            ⍝ parms #.Compare.These #.Compare</code>
+<code> [41]            ⍝ ~~~</code>
+<code> [42]            ⍝</code>
+<code> [43]            ⍝ ## Explict Result</code>
+<code> [44]            ⍝ If the user command ]CompareFiles and its API are not available the names of the two files</code>
+<code> [45]            ⍝ created by CompareSimple are returned.</code>
+<code> [46]            ⍝ If it is available two change flags are returned.</code>
+<code> [47]            ⍝ If `y[1]` and/or `y[2]` are **not** read-only, any changes made by  the user</code>
+<code> [48]            ⍝ are automatically taken into account, meaning that either the object in the</code>
+<code> [49]            ⍝ workspace or the underlying file is updated by `These`. Now under some</code>
+<code> [50]            ⍝ circumstances the caller might want to be notified about such changes, for</code>
+<code> [51]            ⍝ examples if she has created the file itself. This is what the explicit result</code>
+<code> [52]            ⍝ is reporting back: If nothing at all has changed, it's (0 0), if both got</code>
+<code> [53]            ⍝ changed, it is (1 1).</code>
+<code> [54]  </code>
+<code> [55]   :If 1=≡y</code>
+<code class="emphasize">→[56]   :AndIf 2=+/⊃∨/' ⎕SE.' ' #.'⍷¨⊂' ',⍕y</code>
+<code class="emphasize">→[57]       (ref1 ref2)←y</code>
+<code> [58]   :Else</code>
+<code> [59]       y←,{0 1∊⍨≡⍵:⊂⍵ ⋄ y}y</code>
+<code> [60]       (ref1 ref2)←2↑y,⊂''</code>
+<code> [61]   :EndIf</code>
+<code> [62]   G←CreateParmsFor_These</code>
+<code> [63]   :If 9=⎕NC'parms'</code>
+<code> [64]   :AndIf 0≠≢l←parms.⎕NL-2</code>
+<code> [65]       :If ∨/b←~l∊G.⎕NL-2</code>
+<code> [66]           11 ⎕SIGNAL⍨'Invalid left argument: ',{1↓∊','∘,¨⍵}b/l</code>
+<code> [67]       :EndIf</code>
+<code> [68]       'G'⎕NS(⊂'parms.'),¨parms.⎕NL-2</code>
+<code> [69]   :EndIf</code>
+<code> [70]   changeFlag←0 0</code>
+<code> [71]  </code>
+<code> [72]   (ref1 ref2)←{IsRef ⍵:⍵ ⋄ 9.5 9.4∊⍨|⎕NC⊂⍵:⍎⍵ ⋄ {⍵/⍨~(∧\' '=⍵)∨⌽∧\' '=⌽⍵}⍵}¨ref1 ref2</code>
+<code> [73]   (ref1 ref2)←{⍬≡⍴⍵:⍵</code>
+<code> [74]       (1⍴⍵)∊'#⎕':⍵</code>
+<code> [75]       (':'∊⍵):⍵</code>
+<code> [76]       ('\\'≡(2⌊⍴,⍵)↑⍵):⍵</code>
+<code> [77]       0=≢⍵:⍵</code>
+<code> [78]       (2⊃⎕NSI),'.',⍵}¨ref1 ref2</code>
+<code> [79]   f←9 9=⊃∘⎕NC¨⍕¨ref1 ref2                   ⍝ If they are both name class 9 but...</code>
+<code> [80]   f∧←IsNotScript¨ref1 ref2                  ⍝ ... not a script then they are ordinary namespaces...</code>
+<code> [81]  </code>
+<code> [82]   :If ∨/f</code>
+<code> [83]       :If ∧/f</code>
+<code> [84]           11 ⎕SIGNAL⍨'"These" cannot process ordinary namespaces; use `Compare.Merge` instead.'</code>
+<code> [85]       :Else</code>
+<code> [86]           11 ⎕SIGNAL⍨'"These" cannot process any ordinary namespace: ',(⍕⊃f/ref1 ref2),'; use `Compare.Merge` instead.'</code>
+<code> [87]       :EndIf</code>
+<code> [88]   :Else</code>
+<code> [89]       :If 0=≢⍕ref2 ⍝ Special case: only y[1] was specified, so let's look for</code>
+<code> [90]           :If 0=f[1] ⍝ Is it a script?</code>
+<code> [91]               :If 0&lt;≢buff←⎕SE.Link.GetFileName⍕ref1</code>
+<code class="emphasize">→[92]                   ref2←'file://',buff</code>
+<code class="emphasize">→[93]                   readOnly2←1 ⍝ only this makes sense!</code>
+<code> [94]               :Else</code>
+<code> [95]                   11 ⎕SIGNAL⍨'Nothing to compare with: "',(⍕ref1),'"'</code>
+<code> [96]               :EndIf</code>
+<code> [97]           :Else</code>
+<code class="emphasize">→[98]               'Invalid right argument'⎕SIGNAL 11</code>
+<code> [99]           :EndIf</code>
+<code> [100]      :EndIf</code>
+<code> [101] </code>
+<code> [102]      (ref1IsRef ref2IsRef)←IsRef¨ref1 ref2</code>
+<code> [103]      (ref1 ref2)←ref1IsRef ref2IsRef{⍺:GetRealHome ⍵ ⋄ ⍵}¨ref1 ref2</code>
+<code> [104]      (ref1Is_FN ref2Is_FN)←IsFile¨ref1 ref2</code>
+<code> [105]      temp_FN1←temp_FN2←⍬                                           ⍝ Temp filenames</code>
+<code> [106]      isLinked1←0&lt;≢⎕SE.Link.GetFileName ref1</code>
+<code> [107]      isLinked2←0&lt;≢⎕SE.Link.GetFileName ref2</code>
+<code> [108] </code>
+<code> [109]      :If ref1Is_FN</code>
+<code> [110]          FN_1←('file://'){⍵↓⍨(≢⍺)×⍺≡(≢⍺)↑⎕C ⍵}ref1</code>
+<code> [111]      :Else</code>
+<code> [112]          :If 0=≢temp_FN1 ⍝ then we are coming back again</code>
+<code> [113]              temp_FN1←WriteAplObjToFile ref1</code>
+<code> [114]              FN_1←''</code>
+<code> [115]          :EndIf</code>
+<code> [116]      :EndIf</code>
+<code> [117]      :If ref2Is_FN</code>
+<code> [118]          FN_2←('file://'){⍵↓⍨(≢⍺)×⍺≡(≢⍺)↑⎕C ⍵}ref2</code>
+<code> [119]      :Else</code>
+<code> [120]          FN_2←WriteAplObjToFile ref2</code>
+<code> [121]          temp_FN2←''</code>
+<code> [122]      :EndIf</code>
+<code> [123]      file1←(1+0=≢temp_FN1)⊃temp_FN1 FN_1</code>
+<code> [124]      file2←(1+0=≢temp_FN2)⊃temp_FN2 FN_2</code>
+<code> [125]      G.alias1{0=≢⍺:⍵ ⋄ ⍺}←ref1</code>
+<code> [126]      G.alias2{0=≢⍺:⍵ ⋄ ⍺}←ref2</code>
+<code> [127] </code>
+<code> [128]      ('File not found: ',file1)⎕SIGNAL 11/⍨~##.FilesAndDirs.Exists file1</code>
+<code> [129]      ('File not found: ',file2)⎕SIGNAL 11/⍨~##.FilesAndDirs.Exists file2</code>
+<code> [130]      :If NoComparison</code>
+<code> [131]          r←file1 file2</code>
+<code> [132]      :Else</code>
+<code> [133]          :If 0=⎕SE.⎕NC'CompareFiles'</code>
+<code> [134]              (exe name)←⎕SE.CompareFiles.EstablishCompareEXE''</code>
+<code> [135]          :OrIf 3≠⎕NC'⎕se.CompareFiles.ComparisonTools.CreateParmsFor',name</code>
+<code class="emphasize">→[136]              ⎕←file1 file2</code>
+<code> [137]          :Else</code>
+<code> [138]              parms←⍎'⎕se.CompareFiles.ComparisonTools.CreateParmsFor',name</code>
+<code> [139]              parms.(file1 file2)←file1 file2</code>
+<code> [140]              parms.(caption1 caption2)←G.(alias1 alias2)</code>
+<code> [141]              parms.use←exe</code>
+<code> [142]              parms.(edit1 edit2)←~G.(readOnly1 readOnly2)</code>
+<code> [143]              orig←{⊃⎕NGET ⍵ 1}¨file1 file2</code>
+<code> [144]              {}⎕SE.CompareFiles.Compare parms</code>
+<code> [145]              bodies←{⊃⎕NGET ⍵ 1}¨file1 file2</code>
+<code> [146]              changeFlag←orig≢¨bodies</code>
+<code> [147]              :If ∨/changeFlag</code>
+<code> [148]                  :If 1⊃changeFlag</code>
+<code> [149]                      body←1⊃bodies</code>
+<code> [150]                      :If ref1Is_FN</code>
+<code class="emphasize">→[151]                          (⊂body)⎕NPUT FN_1 1</code>
+<code> [152]                      :Else</code>
+<code> [153]                          :If (|⎕NC ref1)∊3 4</code>
+<code> [154]                              lineNo←body{⍵.⎕FX ⍺}⍎{⍵↓⍨-'.'⍳⍨⌽⍵}ref1</code>
+<code> [155]                              ⍎(' '≠1↑0⍴lineNo)/'. ⍝ ⎕FX has failed, check "lineNo"'</code>
+<code> [156]                              SetChanged ref1</code>
+<code> [157]                          :Else</code>
+<code class="emphasize">→[158]                              :Trap 0</code>
+<code class="emphasize">→[159]                                  res←body{⍵.⎕FIX ⍺}⍎{⍵↓⍨-'.'⍳⍨⌽⍵}ref1</code>
+<code class="emphasize">→[160]                                  :If (⍕res)≢ref1</code>
+<code class="emphasize">→[161]                                      . ⍝ Something is not quite right!</code>
+<code> [162]                                  :EndIf</code>
+<code class="emphasize">→[163]                                  SetChanged ref1</code>
+<code> [164]                              :Else</code>
+<code class="emphasize">→[165]                                  ShowMsg'Fixing your changes failed, please check'</code>
+<code class="emphasize">→[166]                                  →∆EditAgain</code>
+<code> [167]                              :EndTrap</code>
+<code> [168]                          :EndIf</code>
+<code> [169]                      :EndIf</code>
+<code> [170]                  :EndIf</code>
+<code> [171]                  :If 2⊃changeFlag</code>
+<code> [172]                      body←2⊃bodies</code>
+<code> [173]                      :If ref2Is_FN</code>
+<code class="emphasize">→[174]                          (⊂body)##.FilesAndDirs.NPUT FN_2 1</code>
+<code> [175]                      :Else</code>
+<code> [176]                          :If (|⎕NC ref2)∊3 4</code>
+<code> [177]                              lineNo←body{⍵.⎕FX ⍺}⍎{⍵↓⍨-'.'⍳⍨⌽⍵}ref2</code>
+<code> [178]                              ⍎(' '≠1↑0⍴lineNo)/'. ⍝ ⎕FX has failed, check "lineNo"'</code>
+<code> [179]                              SetChanged ref2</code>
+<code> [180]                          :Else</code>
+<code class="emphasize">→[181]                              res←body{⍵.⎕FIX ⍺}⍎{⍵↓⍨-'.'⍳⍨⌽⍵}ref2</code>
+<code class="emphasize">→[182]                              :If (⍕res)≢ref2</code>
+<code class="emphasize">→[183]                                  . ⍝ Something is not quite right!</code>
+<code> [184]                              :EndIf</code>
+<code class="emphasize">→[185]                              SetChanged ref2</code>
+<code> [186]                          :EndIf</code>
+<code> [187]                      :EndIf</code>
+<code> [188]                  :EndIf</code>
+<code> [189]              :EndIf</code>
+<code> [190]          :EndIf</code>
+<code> [191]          r←changeFlag</code>
+<code> [192]      :EndIf</code>
+<code> [193]      :If ∧/r∊0 1</code>
+<code> [194]          {0=≢⍵:shy←0 ⋄ ##.FilesAndDirs.DeleteFile ⍵}¨temp_FN1 temp_FN2</code>
+<code> [195]      :EndIf</code>
+<code> [196]  :EndIf</code>
+</div>
+<code class="header" id="listing_8">#.CompareSimple.CompareSimple.set_NoComparison &mdash; 100%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code> set_NoComparison arg</code>
+<code> [1]  _NoComparison←arg.NewValue</code>
+</div>
+<code class="header" id="listing_9">#.CompareSimple.CompareSimple.get_NoComparison &mdash; 100%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code> r←get_NoComparison</code>
+<code> [1]  r←_NoComparison</code>
+</div>
+<code class="header" id="listing_10">#.CompareSimple.CompareSimple.History &mdash; 100%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  History</code>
+<code> [1]   :Access Public shared</code>
+<code> [2]        ⍝ * 7.0.0</code>
+<code> [3]        ⍝   * Syntax change: `Version` returns a simple string with the version number according to the package config file</code>
+<code> [4]        ⍝   * Packages updated</code>
+<code> [5]        ⍝   * `Make` improved</code>
+<code> [6]        ⍝ * 6.0.1</code>
+<code> [7]        ⍝   * Bug Fix: `These` did not honour the parameters readOnly1 &amp; readOnly2</code>
+<code> [8]        ⍝   * Tests amended</code>
+<code> [9]        ⍝   * Dependencies updated</code>
+<code> [10]       ⍝ * 6.0.0</code>
+<code> [11]       ⍝   * BREAKING CHANGE:</code>
+<code> [12]       ⍝     Does not run any comparison itself anymore but relies on the presence of ⎕SE.CompareFiles or,</code>
+<code> [13]       ⍝     if not available, just returns the filenames rather than change flags.</code>
+<code> [14]       ⍝   * BREAKING CHANGE:</code>
+<code> [15]       ⍝     SALT is not supported anymore.</code>
+<code> [16]       ⍝   * Now informs Link about any changes</code>
+<code> [17]       ⍝\\</code>
+<code> [18]       ⍝ For information regarding older versions see &lt;https://github.com/aplteam/CompareSimple/releases&gt;</code>
+</div>
+<code class="header" id="listing_11">#.CompareSimple.CompareSimple.WriteAplObjToFile &mdash; 100%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  filename←WriteAplObjToFile aplObjName</code>
+<code> [1]   :Access Public Shared</code>
+<code> [2]      ⍝ `aplObjName` is written to a temp file. `aplObjName` may be one of:</code>
+<code> [3]      ⍝ * Function name (trad or direct).</code>
+<code> [4]      ⍝ * Operator name (trad or direct).</code>
+<code> [5]      ⍝ * Script (class, interface, namespace) by name or by reference.</code>
+<code> [6]   aplObjName←⍕aplObjName ⍝ just in case it is a ref</code>
+<code> [7]   errMsg←'Right argument seems not to be one of: APL fns/opr/class/interface/scripted namespace'</code>
+<code> [8]   errMsg ⎕SIGNAL 11/⍨~((2=⎕NC'body')∧0=⎕NC aplObjName)∨(⎕NC⊂aplObjName)∊3.1 3.2 3.3 4.1 4.2 9.4 9.5 9.1</code>
+<code> [9]   errMsg ⎕SIGNAL 11/⍨~3 4 9∊⍨⎕NC⍕aplObjName</code>
+<code> [10]  body←{9=⎕NC ⍵:⎕SRC⍎⍵ ⋄ ⎕NR ⍵}aplObjName</code>
+<code> [11]  filename←WriteToFile⍕¨body  ⍝ The "⍕" is needed for idioms/assigned fns/opr</code>
+</div>
+<code class="header" id="listing_12">#.CompareSimple.CompareSimple.WriteToFile &mdash; 100%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  filename←WriteToFile text</code>
+<code> [1]   :Access Public Shared</code>
+<code> [2]      ⍝ `text` is written to a temp file.</code>
+<code> [3]      ⍝</code>
+<code> [4]      ⍝ The name of the temp file is returned as the result and is build</code>
+<code> [5]      ⍝ up from the current time, the current user and the extension ".txt".</code>
+<code> [6]      ⍝ It's situated in the Windows temp dir.</code>
+<code> [7]      ⍝</code>
+<code> [8]      ⍝ Use this to write APL code to a file.</code>
+<code> [9]   filename←##.FilesAndDirs.GetTempPath,(' '~⍨⍕⎕TS),(⍕?1000),'_',⎕AN,'.dyalog'</code>
+<code> [10]  (⊂text)##.FilesAndDirs.NPUT filename 1</code>
+</div>
+<code class="header" id="listing_13">#.CompareSimple.CompareSimple.CreateParmsFor_These &mdash; 100%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  r←CreateParmsFor_These</code>
+<code> [1]   :Access Public Shared</code>
+<code> [2]        ⍝ Create a command space with the default settings of "These"</code>
+<code> [3]   r←⎕NS''</code>
+<code> [4]   r.readOnly1←0</code>
+<code> [5]   r.readOnly2←0</code>
+<code> [6]   r.alias1←''</code>
+<code> [7]   r.alias2←''</code>
+<code> [8]   r.reportFile←''</code>
+<code> [9]   r.⎕FX'r←List;⎕IO' '⎕IO←⎕ML←0' 'r←{(⍵,[.5]⎕nc¨⊂¨⍵),⍎¨⍵}(⊂''List'')~⍨⎕NL-2 9 3' ⍝ Vars, refs and niladic functions</code>
+</div>
+<code class="header" id="listing_14">#.CompareSimple.CompareSimple.Exec &mdash; 100%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code> r←Exec statement</code>
+<code> [1]  :Access Public Shared</code>
+<code> [2]     ⍝ Useful to test non-public functions</code>
+<code> [3]  r←⍎statement</code>
+</div>
+<code class="header" id="listing_15">#.CompareSimple.CompareSimple.caption &mdash; 100%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block missing">Could not get canonical representation.</div>
+<div id="footer">
+<hr>
+<p>Created by "CodeCoverage" version 0.10.2+52 from 2023-04-09</p>
+</div>
+
+</body>
+</html>
