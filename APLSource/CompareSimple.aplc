@@ -32,7 +32,9 @@
     ∇
 
     ∇ History
-      :Access Public shared
+      :Access Public shared 
+      ⍝ * 7.1.0 ⋄ 2025-05-06
+      ⍝   * Package updated (FilesAndDirs)
       ⍝ * 7.0.0 ⋄ 2025-04-05
       ⍝   * Syntax change: `Version` returns a simple string with the version number according to the package config file
       ⍝   * Packages updated
